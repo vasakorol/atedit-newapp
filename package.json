@@ -1,6 +1,6 @@
 {
   "name": "atavism-editor",
-  "version": "0.0.2",
+  "version": "0.0.3-alpha.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "bump": "standard-version"
+    "release": "standard-version"
   },
   "private": true,
   "dependencies": {
