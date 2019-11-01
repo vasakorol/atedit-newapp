@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://gitlab.com/atavism-group/atavismeditor/compare/v0.0.3...v0.0.4) (2019-11-01)
+
+
+### Features
+
+* add file ([74449eb](https://gitlab.com/atavism-group/atavismeditor/commit/74449eb7517f52006c576a3aed36b92d48890670))
+
 ### [0.0.3](https://gitlab.com/atavism-group/atavismeditor/compare/v0.0.3-alpha.0...v0.0.3) (2019-11-01)
 
 ### [0.0.3-alpha.0](https://gitlab.com/atavism-group/atavismeditor/compare/v0.0.2...v0.0.3-alpha.0) (2019-11-01)
