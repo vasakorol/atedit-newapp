@@ -1,6 +1,6 @@
 {
   "name": "atavism-editor",
-  "version": null,
+  "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,9 +9,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "release:repo": "git push --follow-tags origin master",
-    "release:patch": "standard-version --release-as path && yarn release:repo",
-    "release:minor": "standard-version --release-as minor && yarn release:repo",
-    "release:major": "standard-version --release-as major && yarn release:repo"
+    "release:patch": "standard-version -- --release-as path && yarn release:repo",
+    "release:minor": "standard-version -- --release-as minor && yarn release:repo",
+    "release:major": "standard-version -- --release-as major && yarn release:repo"
   },
   "private": true,
   "dependencies": {
