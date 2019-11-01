@@ -8,7 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "release": "standard-version --release-as minor && git push --follow-tags origin master"
+    "release:repo": "git push --follow-tags origin master",
+    "release": "standard-version -a && yarn release:repo",
+    "release-minor": "standard-version --release-as minor && yarn release:repo",
+    "release-major": "standard-version --release-as major && yarn release:repo"
   },
   "private": true,
   "dependencies": {
