@@ -10,6 +10,7 @@
     "e2e": "ng e2e",
     "release:repo": "git push --follow-tags origin master",
     "release": "standard-version -a && yarn release:repo",
+    "release:test": "conventional-gitlab-releaser -p angular",
     "release-minor": "standard-version --release-as minor && yarn release:repo",
     "release-major": "standard-version --release-as major && yarn release:repo"
   },
@@ -37,6 +38,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
+    "conventional-gitlab-releaser": "^4.0.1",
     "electron": "^7.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
