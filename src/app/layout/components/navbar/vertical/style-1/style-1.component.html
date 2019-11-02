@@ -5,11 +5,10 @@
   <div class="logo">
     <img
       class="logo-icon"
-      src="../../../../../../assets/images/logos/fuse.svg"
+      src="../../../../../../assets/images/logos/logo.png"
     />
-    <span class="logo-text secondary-text">FUSE</span>
+    <span class="logo-text secondary-text">{{ "PAGE.TITLE" | translate }}</span>
   </div>
-
   <div class="buttons">
     <button
       mat-icon-button
@@ -19,7 +18,6 @@
     >
       <mat-icon class="secondary-text">menu</mat-icon>
     </button>
-
     <button
       mat-icon-button
       class="toggle-sidebar-opened"
@@ -38,6 +36,7 @@
   [fusePerfectScrollbarOptions]="{ suppressScrollX: true }"
 >
   <div
+    *ngIf="false"
     class="user"
     fxLayout="column"
     [ngClass]="fuseConfig.layout.navbar.secondaryBackground"

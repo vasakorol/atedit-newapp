@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
-import { Subject } from "rxjs";
+import { combineLatest, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-
-import { FuseProgressBarService } from "@fuse/components/progress-bar/progress-bar.service";
+import {
+  FuseProgressBarService,
+  ProgressBarMode
+} from "@fuse/components/progress-bar/progress-bar.service";
 
 @Component({
   selector: "fuse-progress-bar",
@@ -11,75 +13,32 @@ import { FuseProgressBarService } from "@fuse/components/progress-bar/progress-b
   encapsulation: ViewEncapsulation.None
 })
 export class FuseProgressBarComponent implements OnInit, OnDestroy {
-  bufferValue: number;
-  mode: "determinate" | "indeterminate" | "buffer" | "query";
-  value: number;
-  visible: boolean;
+  public bufferValue: number;
+  public mode: ProgressBarMode;
+  public value: number;
+  public visible: boolean;
+  private _unsubscribeAll = new Subject();
 
-  // Private
-  private _unsubscribeAll: Subject<any>;
+  constructor(private _fuseProgressBarService: FuseProgressBarService) {}
 
-  /**
-   * Constructor
-   *
-   * @param {FuseProgressBarService} _fuseProgressBarService
-   */
-  constructor(private _fuseProgressBarService: FuseProgressBarService) {
-    // Set the defaults
-
-    // Set the private defaults
-    this._unsubscribeAll = new Subject();
-  }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
   ngOnInit(): void {
-    // Subscribe to the progress bar service properties
-
-    // Buffer value
-    this._fuseProgressBarService.bufferValue
+    combineLatest(
+      this._fuseProgressBarService.bufferValue,
+      this._fuseProgressBarService.mode,
+      this._fuseProgressBarService.value,
+      this._fuseProgressBarService.visible
+    )
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(bufferValue => {
+      .subscribe(([bufferValue, mode, value, visible]) => {
         this.bufferValue = bufferValue;
-      });
-
-    // Mode
-    this._fuseProgressBarService.mode
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(mode => {
         this.mode = mode;
-      });
-
-    // Value
-    this._fuseProgressBarService.value
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(value => {
         this.value = value;
-      });
-
-    // Visible
-    this._fuseProgressBarService.visible
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(visible => {
         this.visible = visible;
       });
   }
 
-  /**
-   * On destroy
-   */
   ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
 }

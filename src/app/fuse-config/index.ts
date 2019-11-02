@@ -37,24 +37,58 @@ export const fuseConfig: FuseConfig = {
 
 export const navigation: FuseNavigation[] = [
   {
-    id: "applications",
-    title: "Applications",
-    translate: "NAV.APPLICATIONS",
-    type: "group",
+    id: "server",
+    title: "Server",
+    translate: "NAV.SERVER",
+    type: "collapsable",
     children: [
       {
-        id: "sample",
-        title: "Sample",
-        translate: "NAV.SAMPLE.TITLE",
+        id: "instances",
+        title: "Instances",
+        translate: "NAV.INSTANCES",
         type: "item",
-        icon: "email",
-        url: "/sample",
-        badge: {
-          title: "25",
-          translate: "NAV.SAMPLE.BADGE",
-          bg: "#F44336",
-          fg: "#FFFFFF"
-        }
+        icon: "storage",
+        url: "/instances"
+      },
+      {
+        id: "accounts",
+        title: "Accounts",
+        translate: "NAV.ACCOUNTS",
+        type: "item",
+        icon: "account_circle",
+        url: "/accounts"
+      },
+      {
+        id: "task",
+        title: "Task",
+        translate: "NAV.TASK",
+        type: "item",
+        icon: "storage",
+        url: "/task"
+      }
+    ]
+  },
+  {
+    id: "item",
+    title: "Item",
+    translate: "NAV.ITEM",
+    type: "collapsable",
+    children: [
+      {
+        id: "items",
+        title: "Items",
+        translate: "NAV.ITEMS",
+        type: "item",
+        icon: "storage",
+        url: "/items"
+      },
+      {
+        id: "currencies",
+        title: "Currencies",
+        translate: "NAV.CURRENCIES",
+        type: "item",
+        icon: "attach_money",
+        url: "/currencies"
       }
     ]
   }
