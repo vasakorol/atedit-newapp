@@ -9,15 +9,21 @@ import {
 import { BehaviorSubject, Observable } from "rxjs";
 import { filter } from "rxjs/operators";
 
+export enum ProgressBarMode {
+  determinate = "determinate",
+  indeterminate = "indeterminate",
+  buffer = "buffer",
+  query = "query"
+}
+
 @Injectable({
   providedIn: "root"
 })
 export class FuseProgressBarService {
-  // Private
-  private _bufferValue: BehaviorSubject<number>;
-  private _mode: BehaviorSubject<string>;
-  private _value: BehaviorSubject<number>;
-  private _visible: BehaviorSubject<boolean>;
+  private _bufferValue = new BehaviorSubject(0);
+  private _mode = new BehaviorSubject(ProgressBarMode.indeterminate);
+  private _value = new BehaviorSubject(0);
+  private _visible = new BehaviorSubject(false);
 
   /**
    * Constructor
@@ -25,13 +31,8 @@ export class FuseProgressBarService {
    * @param {Router} _router
    */
   constructor(private _router: Router) {
-    // Initialize the service
     this._init();
   }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Accessors
-  // -----------------------------------------------------------------------------------------------------
 
   /**
    * Buffer value
@@ -51,7 +52,7 @@ export class FuseProgressBarService {
     return this._mode.asObservable();
   }
 
-  setMode(value: "determinate" | "indeterminate" | "buffer" | "query"): void {
+  setMode(value: ProgressBarMode): void {
     this._mode.next(value);
   }
 
@@ -73,23 +74,12 @@ export class FuseProgressBarService {
     return this._visible.asObservable();
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Private methods
-  // -----------------------------------------------------------------------------------------------------
-
   /**
    * Initialize
    *
    * @private
    */
   private _init(): void {
-    // Initialize the behavior subjects
-    this._bufferValue = new BehaviorSubject(0);
-    this._mode = new BehaviorSubject("indeterminate");
-    this._value = new BehaviorSubject(0);
-    this._visible = new BehaviorSubject(false);
-
-    // Subscribe to the router events to show/hide the loading bar
     this._router.events
       .pipe(filter(event => event instanceof NavigationStart))
       .subscribe(() => {
@@ -105,26 +95,20 @@ export class FuseProgressBarService {
             event instanceof NavigationCancel
         )
       )
-      .subscribe(() => {
-        this.hide();
-      });
+      .subscribe(() => this.hide());
   }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
 
   /**
    * Show the progress bar
    */
-  show(): void {
+  public show(): void {
     this._visible.next(true);
   }
 
   /**
    * Hide the progress bar
    */
-  hide(): void {
+  public hide(): void {
     this._visible.next(false);
   }
 }

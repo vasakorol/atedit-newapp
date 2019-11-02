@@ -3,7 +3,6 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { TranslateService } from "@ngx-translate/core";
 import * as _ from "lodash";
-
 import { FuseConfigService } from "@fuse/services/config.service";
 import { FuseSidebarService } from "@fuse/components/sidebar/sidebar.service";
 import { navigation } from "../../../fuse-config";
@@ -14,6 +13,12 @@ interface Language {
   flag: string;
 }
 
+interface StatusOption {
+  title: string;
+  icon: string;
+  color: string;
+}
+
 @Component({
   selector: "toolbar",
   templateUrl: "./toolbar.component.html",
@@ -21,79 +26,45 @@ interface Language {
   encapsulation: ViewEncapsulation.None
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
-  horizontalNavbar: boolean;
-  rightNavbar: boolean;
-  hiddenNavbar: boolean;
-  languages: Language[];
+  public horizontalNavbar: boolean;
+  public rightNavbar: boolean;
+  public hiddenNavbar: boolean;
+  public languages: Language[];
   public navigation = navigation;
-  selectedLanguage: Language = null;
-  userStatusOptions: any[];
+  public selectedLanguage: Language = null;
 
-  // Private
-  private _unsubscribeAll: Subject<any>;
+  // TODO instead of show user status, we need to show server status, online or offline
+  public userStatusOptions: StatusOption[] = [
+    { title: "Online", icon: "icon-checkbox-marked-circle", color: "#4CAF50" },
+    { title: "Away", icon: "icon-clock", color: "#FFC107" },
+    { title: "Do not Disturb", icon: "icon-minus-circle", color: "#F44336" },
+    {
+      title: "Invisible",
+      icon: "icon-checkbox-blank-circle-outline",
+      color: "#BDBDBD"
+    },
+    {
+      title: "Offline",
+      icon: "icon-checkbox-blank-circle-outline",
+      color: "#616161"
+    }
+  ];
 
-  /**
-   * Constructor
-   *
-   * @param {FuseConfigService} _fuseConfigService
-   * @param {FuseSidebarService} _fuseSidebarService
-   * @param {TranslateService} _translateService
-   */
+  private _unsubscribeAll = new Subject();
+
   constructor(
     private _fuseConfigService: FuseConfigService,
     private _fuseSidebarService: FuseSidebarService,
     private _translateService: TranslateService
   ) {
-    // Set the defaults
-    this.userStatusOptions = [
-      {
-        title: "Online",
-        icon: "icon-checkbox-marked-circle",
-        color: "#4CAF50"
-      },
-      {
-        title: "Away",
-        icon: "icon-clock",
-        color: "#FFC107"
-      },
-      {
-        title: "Do not Disturb",
-        icon: "icon-minus-circle",
-        color: "#F44336"
-      },
-      {
-        title: "Invisible",
-        icon: "icon-checkbox-blank-circle-outline",
-        color: "#BDBDBD"
-      },
-      {
-        title: "Offline",
-        icon: "icon-checkbox-blank-circle-outline",
-        color: "#616161"
-      }
-    ];
-
-    this.languages = [
-      {
-        id: "en",
-        title: "English",
-        flag: "us"
-      }
-    ];
-
-    // Set the private defaults
-    this._unsubscribeAll = new Subject();
+    // TODO dynamic languages
+    this.languages = [{ id: "en", title: "English", flag: "us" }];
   }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
 
   /**
    * On init
    */
   ngOnInit(): void {
-    // Subscribe to the config changes
     this._fuseConfigService.config
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(settings => {
@@ -102,24 +73,18 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         this.hiddenNavbar = settings.layout.navbar.hidden === true;
       });
 
-    // Set the selected language from default languages
-    this.selectedLanguage = _.find(this.languages, {
-      id: this._translateService.currentLang
-    });
+    this.selectedLanguage = this.languages.find(
+      language => language.id === this._translateService.currentLang
+    );
   }
 
   /**
    * On destroy
    */
   ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
 
   /**
    * Toggle sidebar open
@@ -136,7 +101,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
    * @param value
    */
   search(value): void {
-    // Do your search here...
     console.log(value);
   }
 
@@ -146,10 +110,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
    * @param lang
    */
   setLanguage(lang): void {
-    // Set the selected language for the toolbar
     this.selectedLanguage = lang;
-
-    // Use the selected language for translations
     this._translateService.use(lang.id);
   }
 }

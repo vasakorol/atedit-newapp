@@ -25,42 +25,24 @@ export class FuseNavigationComponent implements OnInit {
   @Input()
   navigation: any;
 
-  // Private
-  private _unsubscribeAll: Subject<any>;
+  private _unsubscribeAll = new Subject();
 
-  /**
-   *
-   * @param {ChangeDetectorRef} _changeDetectorRef
-   * @param {FuseNavigationService} _fuseNavigationService
-   */
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _fuseNavigationService: FuseNavigationService
-  ) {
-    // Set the private defaults
-    this._unsubscribeAll = new Subject();
-  }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
+  ) {}
 
   /**
    * On init
    */
   ngOnInit(): void {
-    // Load the navigation either from the input or from the service
     this.navigation =
       this.navigation || this._fuseNavigationService.getCurrentNavigation();
 
-    // Subscribe to the current navigation changes
     this._fuseNavigationService.onNavigationChanged
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(() => {
-        // Load the navigation
         this.navigation = this._fuseNavigationService.getCurrentNavigation();
-
-        // Mark for check
         this._changeDetectorRef.markForCheck();
       });
 
