@@ -4,13 +4,16 @@ import {
   HostBinding,
   Input,
   OnDestroy,
-  OnInit
+  OnInit,
+  Type
 } from "@angular/core";
 import { merge, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
 import { FuseNavigationItem } from "@fuse/types";
 import { FuseNavigationService } from "@fuse/components/navigation/navigation.service";
+import { Tab, TabsService } from "../../../../../app/services/tabs.service";
+import { FuseSidebarService } from "../../../sidebar/sidebar.service";
 
 @Component({
   selector: "fuse-nav-vertical-item",
@@ -24,35 +27,16 @@ export class FuseNavVerticalItemComponent implements OnInit, OnDestroy {
   @Input()
   item: FuseNavigationItem;
 
-  // Private
-  private _unsubscribeAll: Subject<any>;
+  private _unsubscribeAll = new Subject();
 
-  /**
-   * Constructor
-   */
-
-  /**
-   *
-   * @param {ChangeDetectorRef} _changeDetectorRef
-   * @param {FuseNavigationService} _fuseNavigationService
-   */
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    private _fuseNavigationService: FuseNavigationService
-  ) {
-    // Set the private defaults
-    this._unsubscribeAll = new Subject();
-  }
+    private _fuseNavigationService: FuseNavigationService,
+    private readonly _fuseSidebarService: FuseSidebarService,
+    private readonly tabsService: TabsService
+  ) {}
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
   ngOnInit(): void {
-    // Subscribe to navigation item
     merge(
       this._fuseNavigationService.onNavigationItemAdded,
       this._fuseNavigationService.onNavigationItemUpdated,
@@ -65,12 +49,19 @@ export class FuseNavVerticalItemComponent implements OnInit, OnDestroy {
       });
   }
 
-  /**
-   * On destroy
-   */
   ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+  }
+
+  public openComponent(title: string, component: Type<any>) {
+    const tab: Tab = {
+      id: title.toLowerCase().replace(".", "_"),
+      title,
+      active: true,
+      component
+    };
+    this.tabsService.addTab(tab);
+    this._fuseSidebarService.getSidebar("navbar").toggleOpen();
   }
 }

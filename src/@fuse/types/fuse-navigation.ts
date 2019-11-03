@@ -11,6 +11,7 @@ export interface FuseNavigationItem {
   externalUrl?: boolean;
   openInNewTab?: boolean;
   function?: any;
+  component?: any;
   badge?: {
     title?: string;
     translate?: string;

@@ -1,8 +1,12 @@
 import { FuseConfig } from "@fuse/types";
 import { FuseNavigation } from "@fuse/types";
+import { InstancesComponent } from "../components/instances/instances.component";
+import { AccountsComponent } from "../components/accounts/accounts.component";
+import { ItemsComponent } from "../components/items/items.component";
+import { TaskComponent } from "../components/task/task.component";
+import { CurrenciesComponent } from "../components/currencies/currencies.component";
 
 export const fuseConfig: FuseConfig = {
-  // Color themes can be defined in src/app/app.theme.scss
   colorTheme: "theme-default",
   customScrollbars: true,
   layout: {
@@ -48,7 +52,7 @@ export const navigation: FuseNavigation[] = [
         translate: "NAV.INSTANCES",
         type: "item",
         icon: "storage",
-        url: "/instances"
+        component: InstancesComponent
       },
       {
         id: "accounts",
@@ -56,7 +60,7 @@ export const navigation: FuseNavigation[] = [
         translate: "NAV.ACCOUNTS",
         type: "item",
         icon: "account_circle",
-        url: "/accounts"
+        component: AccountsComponent
       },
       {
         id: "task",
@@ -64,7 +68,7 @@ export const navigation: FuseNavigation[] = [
         translate: "NAV.TASK",
         type: "item",
         icon: "storage",
-        url: "/task"
+        component: TaskComponent
       }
     ]
   },
@@ -80,7 +84,7 @@ export const navigation: FuseNavigation[] = [
         translate: "NAV.ITEMS",
         type: "item",
         icon: "storage",
-        url: "/items"
+        component: ItemsComponent
       },
       {
         id: "currencies",
@@ -88,7 +92,7 @@ export const navigation: FuseNavigation[] = [
         translate: "NAV.CURRENCIES",
         type: "item",
         icon: "attach_money",
-        url: "/currencies"
+        component: CurrenciesComponent
       }
     ]
   }
