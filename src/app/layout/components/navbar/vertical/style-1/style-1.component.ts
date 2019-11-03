@@ -27,7 +27,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
 
   // Private
   private _fusePerfectScrollbar: FusePerfectScrollbarDirective;
-  private _unsubscribeAll: Subject<any>;
+  private _unsubscribeAll = new Subject();
 
   /**
    * Constructor
@@ -42,10 +42,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
     private _fuseNavigationService: FuseNavigationService,
     private _fuseSidebarService: FuseSidebarService,
     private _router: Router
-  ) {
-    // Set the private defaults
-    this._unsubscribeAll = new Subject();
-  }
+  ) {}
 
   // -----------------------------------------------------------------------------------------------------
   // @ Accessors
@@ -86,10 +83,6 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
       });
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
   /**
    * On init
    */
@@ -125,21 +118,17 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
-
   /**
    * Toggle sidebar opened status
    */
-  toggleSidebarOpened(): void {
+  public toggleSidebarOpened(): void {
     this._fuseSidebarService.getSidebar("navbar").toggleOpen();
   }
 
   /**
    * Toggle sidebar folded status
    */
-  toggleSidebarFolded(): void {
+  public toggleSidebarFolded(): void {
     this._fuseSidebarService.getSidebar("navbar").toggleFold();
   }
 }

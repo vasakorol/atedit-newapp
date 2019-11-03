@@ -20,10 +20,28 @@ import {
 } from "@fuse/components";
 import { FuseSharedModule } from "@fuse/shared.module";
 import { LayoutModule } from "./layout/layout.module";
-import { HomeComponent } from "./home/home.component";
+import { TabsComponent } from "./tabs/tabs.component";
+import { TabComponent } from "./tabs/tab/tab.component";
+import { TabDirective } from "./tabs/tab/tab.directive";
+import { AccountsComponent } from "./components/accounts/accounts.component";
+import { CurrenciesComponent } from "./components/currencies/currencies.component";
+import { ItemsComponent } from "./components/items/items.component";
+import { InstancesComponent } from "./components/instances/instances.component";
+import { TaskComponent } from "./components/task/task.component";
+import { MatTabsModule } from "@angular/material/tabs";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    TabsComponent,
+    TabComponent,
+    TabDirective,
+    AccountsComponent,
+    CurrenciesComponent,
+    ItemsComponent,
+    InstancesComponent,
+    TaskComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -34,6 +52,7 @@ import { HomeComponent } from "./home/home.component";
     MatMomentDateModule,
     MatButtonModule,
     MatIconModule,
+    MatTabsModule,
 
     FuseModule.forRoot(fuseConfig),
     FuseProgressBarModule,
@@ -44,6 +63,13 @@ import { HomeComponent } from "./home/home.component";
     LayoutModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AccountsComponent,
+    CurrenciesComponent,
+    ItemsComponent,
+    InstancesComponent,
+    TaskComponent
+  ]
 })
 export class AppModule {}
