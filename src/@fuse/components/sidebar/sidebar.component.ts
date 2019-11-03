@@ -92,7 +92,7 @@ export class FuseSidebarComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any>;
 
   @HostBinding("class.animations-enabled")
-  private _animationsEnabled: boolean;
+  public _animationsEnabled: boolean;
 
   /**
    * Constructor
