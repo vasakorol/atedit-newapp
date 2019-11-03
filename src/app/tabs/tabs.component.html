@@ -1,0 +1,15 @@
+<div class="tabs-container">
+  <mat-tab-group [(selectedIndex)]="selectedTab">
+    <ng-container *ngFor="let tab of tabs | async; let index = index">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon (click)="removeTab(tab)" class="tab-close-icon"
+            >close</mat-icon
+          >
+          {{ tab.title | translate }}
+        </ng-template>
+        <atv-tab [tab]="tab"></atv-tab>
+      </mat-tab>
+    </ng-container>
+  </mat-tab-group>
+</div>

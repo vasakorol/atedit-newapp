@@ -215,12 +215,10 @@ export class FuseNavigationService {
    * @param key
    */
   setCurrentNavigation(key): void {
-    // Check if the sidebar exists
     if (!this._registry[key]) {
       console.warn(
         `The navigation with the key '${key}' doesn't exist in the registry.`
       );
-
       return;
     }
 

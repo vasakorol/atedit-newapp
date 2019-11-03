@@ -1,4 +1,14 @@
 <ng-container *ngIf="!item.hidden">
+  <!-- item.component -->
+  <a
+    class="nav-link"
+    [ngClass]="item.classes"
+    *ngIf="item.component && !item.url && !item.externalUrl && !item.function"
+    (click)="openComponent(item.translate, item.component)"
+  >
+    <ng-container *ngTemplateOutlet="itemContent"></ng-container>
+  </a>
+
   <!-- item.url -->
   <a
     class="nav-link"
