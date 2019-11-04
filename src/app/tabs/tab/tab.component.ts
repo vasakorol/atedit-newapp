@@ -6,8 +6,8 @@ import {
   ViewChild,
   ViewEncapsulation
 } from "@angular/core";
-import { Tab } from "../../services/tabs.service";
 import { TabDirective } from "./tab.directive";
+import { Tab } from "../tabs.data";
 
 @Component({
   selector: "atv-tab",

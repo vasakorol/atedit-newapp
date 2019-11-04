@@ -4,15 +4,13 @@ import { Platform } from "@angular/cdk/platform";
 import { TranslateService } from "@ngx-translate/core";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-
 import { FuseConfigService } from "@fuse/services/config.service";
-import { FuseNavigationService } from "@fuse/components/navigation/navigation.service";
 import { FuseSidebarService } from "@fuse/components/sidebar/sidebar.service";
 import { FuseSplashScreenService } from "@fuse/services/splash-screen.service";
 import { FuseTranslationLoaderService } from "@fuse/services/translation-loader.service";
 
 import { locale as navigationEnglish } from "app/navigation/i18n/en";
-import { fuseConfig, navigation } from "./fuse-config";
+import { fuseConfig } from "./fuse-config";
 
 @Component({
   selector: "atv-root",
@@ -21,46 +19,24 @@ import { fuseConfig, navigation } from "./fuse-config";
 })
 export class AppComponent implements OnInit, OnDestroy {
   public fuseConfig = fuseConfig;
-  public navigation = navigation;
+  private _unsubscribeAll = new Subject();
 
-  // Private
-  private _unsubscribeAll: Subject<any>;
-
-  /**
-   * Constructor
-   *
-   * @param {DOCUMENT} document
-   * @param {FuseConfigService} _fuseConfigService
-   * @param {FuseNavigationService} _fuseNavigationService
-   * @param {FuseSidebarService} _fuseSidebarService
-   * @param {FuseSplashScreenService} _fuseSplashScreenService
-   * @param {FuseTranslationLoaderService} _fuseTranslationLoaderService
-   * @param {Platform} _platform
-   * @param {TranslateService} _translateService
-   */
   constructor(
     @Inject(DOCUMENT) private document: any,
     private _fuseConfigService: FuseConfigService,
-    private _fuseNavigationService: FuseNavigationService,
     private _fuseSidebarService: FuseSidebarService,
     private _fuseSplashScreenService: FuseSplashScreenService,
     private _fuseTranslationLoaderService: FuseTranslationLoaderService,
     private _translateService: TranslateService,
     private _platform: Platform
   ) {
-    // Register the navigation to the service
-    this._fuseNavigationService.register("main", this.navigation);
-
-    // Set the main navigation as our current navigation
-    this._fuseNavigationService.setCurrentNavigation("main");
-
     // Add languages
     this._translateService.addLangs(["en"]);
 
     // Set the default language
     this._translateService.setDefaultLang("en");
 
-    // Set the navigation translations
+    // Set the translations
     this._fuseTranslationLoaderService.loadTranslations(navigationEnglish);
 
     // Use a language
@@ -103,19 +79,9 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this._platform.ANDROID || this._platform.IOS) {
       this.document.body.classList.add("is-mobile");
     }
-
-    // Set the private defaults
-    this._unsubscribeAll = new Subject();
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
-  ngOnInit(): void {
+  public ngOnInit(): void {
     // Subscribe to config changes
     this._fuseConfigService.config
       .pipe(takeUntil(this._unsubscribeAll))
@@ -142,25 +108,17 @@ export class AppComponent implements OnInit, OnDestroy {
       });
   }
 
-  /**
-   * On destroy
-   */
-  ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
+  public ngOnDestroy(): void {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
 
   /**
    * Toggle sidebar open
    *
    * @param key
    */
-  toggleSidebarOpen(key): void {
+  public toggleSidebarOpen(key): void {
     this._fuseSidebarService.getSidebar(key).toggleOpen();
   }
 }

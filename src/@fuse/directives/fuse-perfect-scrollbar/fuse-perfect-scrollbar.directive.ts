@@ -95,7 +95,7 @@ export class FusePerfectScrollbarDirective
   /**
    * Is enabled
    *
-   * @param {boolean | ""} value
+   * @param {boolean | ''} value
    */
   @Input("fusePerfectScrollbar")
   set enabled(value: boolean | "") {

@@ -1,48 +1,63 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, Subject } from "rxjs";
-import * as _ from "lodash";
+import {
+  BehaviorSubject,
+  Observable,
+  ObservedValuesFromArray,
+  ReplaySubject,
+  Subject
+} from "rxjs";
 
-import { FuseNavigationItem } from "@fuse/types";
+import { FuseNavigation, FuseNavigationItem } from "@fuse/types";
+import { tabs, TabType, TabTypeIcon } from "../../../app/tabs/tabs.data";
 
 @Injectable({
   providedIn: "root"
 })
 export class FuseNavigationService {
-  onItemCollapsed: Subject<any>;
-  onItemCollapseToggled: Subject<any>;
+  public onItemCollapsed = new Subject<FuseNavigation>();
+  public onItemCollapseToggled = new Subject<any>();
 
-  // Private
-  private _onNavigationChanged: BehaviorSubject<any>;
-  private _onNavigationRegistered: BehaviorSubject<any>;
-  private _onNavigationUnregistered: BehaviorSubject<any>;
-  private _onNavigationItemAdded: BehaviorSubject<any>;
-  private _onNavigationItemUpdated: BehaviorSubject<any>;
-  private _onNavigationItemRemoved: BehaviorSubject<any>;
+  private _onNavigationChanged = new BehaviorSubject(null);
+  private _onNavigationItemAdded = new BehaviorSubject(null);
+  private _onNavigationItemUpdated = new BehaviorSubject(null);
+  private _onNavigationItemRemoved = new BehaviorSubject(null);
 
-  private _currentNavigationKey: string;
+  private _currentNavigationKey: string = null;
   private _registry: { [key: string]: any } = {};
 
-  /**
-   * Constructor
-   */
-  constructor() {
-    // Set the defaults
-    this.onItemCollapsed = new Subject();
-    this.onItemCollapseToggled = new Subject();
+  private navigationStream = new ReplaySubject<FuseNavigation[]>(1);
+  public navigation = this.navigationStream.asObservable();
 
-    // Set the private defaults
-    this._currentNavigationKey = null;
-    this._onNavigationChanged = new BehaviorSubject(null);
-    this._onNavigationRegistered = new BehaviorSubject(null);
-    this._onNavigationUnregistered = new BehaviorSubject(null);
-    this._onNavigationItemAdded = new BehaviorSubject(null);
-    this._onNavigationItemUpdated = new BehaviorSubject(null);
-    this._onNavigationItemRemoved = new BehaviorSubject(null);
+  constructor() {
+    this.buildNavigation();
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Accessors
-  // -----------------------------------------------------------------------------------------------------
+  private buildNavigation(): void {
+    const navigation: FuseNavigation[] = [];
+    Object.keys(TabType).forEach(item => {
+      const children = tabs.filter(nav => nav.type === item);
+      const navigationParent: FuseNavigation = {
+        id: item,
+        title: "NAV.SECTION." + item.toLocaleUpperCase(),
+        type: "collapsable",
+        icon: TabTypeIcon[item],
+        children: children.map(nav => {
+          return {
+            id: nav.id,
+            title: nav.title,
+            type: "item",
+            icon: nav.icon,
+            component: nav.component
+          };
+        })
+      };
+      if (navigationParent.children.length > 0) {
+        navigation.push(navigationParent);
+      }
+    });
+    console.log("navigation", navigation);
+    this.navigationStream.next(navigation);
+  }
 
   /**
    * Get onNavigationChanged
@@ -51,24 +66,6 @@ export class FuseNavigationService {
    */
   get onNavigationChanged(): Observable<any> {
     return this._onNavigationChanged.asObservable();
-  }
-
-  /**
-   * Get onNavigationRegistered
-   *
-   * @returns {Observable<any>}
-   */
-  get onNavigationRegistered(): Observable<any> {
-    return this._onNavigationRegistered.asObservable();
-  }
-
-  /**
-   * Get onNavigationUnregistered
-   *
-   * @returns {Observable<any>}
-   */
-  get onNavigationUnregistered(): Observable<any> {
-    return this._onNavigationUnregistered.asObservable();
   }
 
   /**
@@ -96,53 +93,6 @@ export class FuseNavigationService {
    */
   get onNavigationItemRemoved(): Observable<any> {
     return this._onNavigationItemRemoved.asObservable();
-  }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Register the given navigation
-   * with the given key
-   *
-   * @param key
-   * @param navigation
-   */
-  register(key, navigation): void {
-    // Check if the key already being used
-    if (this._registry[key]) {
-      console.error(
-        `The navigation with the key '${key}' already exists. Either unregister it first or use a unique key.`
-      );
-
-      return;
-    }
-
-    // Add to the registry
-    this._registry[key] = navigation;
-
-    // Notify the subject
-    this._onNavigationRegistered.next([key, navigation]);
-  }
-
-  /**
-   * Unregister the navigation from the registry
-   * @param key
-   */
-  unregister(key): void {
-    // Check if the navigation exists
-    if (!this._registry[key]) {
-      console.warn(
-        `The navigation with the key '${key}' doesn't exist in the registry.`
-      );
-    }
-
-    // Unregister the sidebar
-    delete this._registry[key];
-
-    // Notify the subject
-    this._onNavigationUnregistered.next(key);
   }
 
   /**
@@ -206,27 +156,6 @@ export class FuseNavigationService {
     }
 
     return this.getNavigation(this._currentNavigationKey);
-  }
-
-  /**
-   * Set the navigation with the key
-   * as the current navigation
-   *
-   * @param key
-   */
-  setCurrentNavigation(key): void {
-    if (!this._registry[key]) {
-      console.warn(
-        `The navigation with the key '${key}' doesn't exist in the registry.`
-      );
-      return;
-    }
-
-    // Set the current navigation key
-    this._currentNavigationKey = key;
-
-    // Notify the subject
-    this._onNavigationChanged.next(key);
   }
 
   /**
@@ -298,7 +227,7 @@ export class FuseNavigationService {
    */
   addNavigationItem(item, id): void {
     // Get the current navigation
-    const navigation: any[] = this.getCurrentNavigation();
+    const navigation = this.getCurrentNavigation();
 
     // Add to the end of the navigation
     if (id === "end") {
@@ -336,28 +265,6 @@ export class FuseNavigationService {
 
     // Trigger the observable
     this._onNavigationItemAdded.next(true);
-  }
-
-  /**
-   * Update navigation item with the given id
-   *
-   * @param id
-   * @param properties
-   */
-  updateNavigationItem(id, properties): void {
-    // Get the navigation item
-    const navigationItem = this.getNavigationItem(id);
-
-    // If there is no navigation with the give id, return
-    if (!navigationItem) {
-      return;
-    }
-
-    // Merge the navigation properties
-    _.merge(navigationItem, properties);
-
-    // Trigger the observable
-    this._onNavigationItemUpdated.next(true);
   }
 
   /**
