@@ -3,6 +3,7 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { TabsService } from "../services/tabs.service";
 import { Tab } from "./tabs.data";
+import { MatTabChangeEvent } from "@angular/material/tabs";
 
 @Component({
   selector: "atv-tabs",
@@ -22,6 +23,10 @@ export class TabsComponent implements OnInit {
       const tab = tabs.find(item => item.active);
       this.selectedTab = tab ? tabs.indexOf(tab) : 0;
     });
+  }
+
+  public updateSelectedTabIndex(tab: MatTabChangeEvent) {
+    this.tabsService.updateSelectedTab(tab.index);
   }
 
   public removeTab(tab: Tab) {

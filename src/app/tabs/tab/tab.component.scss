@@ -20,20 +20,23 @@ $icon-size: 18px;
     z-index: 1;
   }
 }
-.tab-close-icon {
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  font-size: 14px;
-  line-height: $icon-size;
-  height: $icon-size;
-  width: $icon-size;
-  min-height: $icon-size;
-  min-width: $icon-size;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.37);
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.87);
-    color: #ffffff;
+.tabs-container {
+  .tab-close-icon {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 14px;
+    line-height: $icon-size;
+    height: $icon-size;
+    width: $icon-size;
+    min-height: $icon-size;
+    min-width: $icon-size;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.37);
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.87);
+      color: #ffffff;
+    }
   }
 }

@@ -1,5 +1,8 @@
 <div class="tabs-container">
-  <mat-tab-group [(selectedIndex)]="selectedTab">
+  <mat-tab-group
+    [selectedIndex]="selectedTab"
+    (selectedTabChange)="updateSelectedTabIndex($event)"
+  >
     <ng-container *ngFor="let tab of tabs | async; let index = index">
       <mat-tab>
         <ng-template mat-tab-label>

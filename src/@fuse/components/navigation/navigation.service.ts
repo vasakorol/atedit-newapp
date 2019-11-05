@@ -55,7 +55,6 @@ export class FuseNavigationService {
         navigation.push(navigationParent);
       }
     });
-    console.log("navigation", navigation);
     this.navigationStream.next(navigation);
   }
 
