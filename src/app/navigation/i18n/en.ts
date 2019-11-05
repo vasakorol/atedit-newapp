@@ -5,11 +5,13 @@ export const locale = {
       TITLE: "Atavism Editor"
     },
     NAV: {
-      SERVER: "Server",
+      SECTION: {
+        SERVER: "Server",
+        ITEM: "Item"
+      },
       INSTANCES: "Instances",
       ACCOUNTS: "Accounts",
       TASK: "Task",
-      ITEM: "Item",
       ITEMS: "Items",
       CURRENCIES: "Currencies"
     }

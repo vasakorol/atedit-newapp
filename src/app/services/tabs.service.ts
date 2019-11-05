@@ -1,23 +1,14 @@
 import { Injectable } from "@angular/core";
 import { ReplaySubject } from "rxjs";
-import { StorageService } from "./storage.service";
-
-export interface Tab {
-  id: string;
-  title: string;
-  active: boolean;
-  component: any;
-}
+import { Tab, tabs } from "../tabs/tabs.data";
 
 @Injectable({
   providedIn: "root"
 })
 export class TabsService {
   private tabsStream = new ReplaySubject<Tab[]>(1);
-
-  public readonly tabs = this.tabsStream.asObservable();
-
   private listTabs: Tab[] = [];
+  public readonly tabs = this.tabsStream.asObservable();
 
   constructor() {}
 
@@ -45,5 +36,9 @@ export class TabsService {
       this.listTabs.splice(this.listTabs.indexOf(tab), 1);
       this.tabsStream.next(this.listTabs);
     }
+  }
+
+  public tabById(id: string): Tab {
+    return tabs.find(tab => tab.id === id);
   }
 }

@@ -3,7 +3,7 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
 import { FuseConfigService } from "@fuse/services/config.service";
-import { fuseConfig, navigation } from "../../../fuse-config";
+import { fuseConfig } from "../../../fuse-config";
 
 @Component({
   selector: "vertical-layout-2",
@@ -13,30 +13,11 @@ import { fuseConfig, navigation } from "../../../fuse-config";
 })
 export class VerticalLayout2Component implements OnInit, OnDestroy {
   public fuseConfig = fuseConfig;
-  public navigation = navigation;
+  private _unsubscribeAll = new Subject();
 
-  // Private
-  private _unsubscribeAll: Subject<any>;
+  constructor(private _fuseConfigService: FuseConfigService) {}
 
-  /**
-   * Constructor
-   *
-   * @param {FuseConfigService} _fuseConfigService
-   */
-  constructor(private _fuseConfigService: FuseConfigService) {
-    // Set the private defaults
-    this._unsubscribeAll = new Subject();
-  }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
-  ngOnInit(): void {
-    // Subscribe to config changes
+  public ngOnInit(): void {
     this._fuseConfigService.config
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(config => {
@@ -44,11 +25,7 @@ export class VerticalLayout2Component implements OnInit, OnDestroy {
       });
   }
 
-  /**
-   * On destroy
-   */
-  ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
+  public ngOnDestroy(): void {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }

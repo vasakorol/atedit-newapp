@@ -1,10 +1,4 @@
 import { FuseConfig } from "@fuse/types";
-import { FuseNavigation } from "@fuse/types";
-import { InstancesComponent } from "../components/instances/instances.component";
-import { AccountsComponent } from "../components/accounts/accounts.component";
-import { ItemsComponent } from "../components/items/items.component";
-import { TaskComponent } from "../components/task/task.component";
-import { CurrenciesComponent } from "../components/currencies/currencies.component";
 
 export const fuseConfig: FuseConfig = {
   colorTheme: "theme-default",
@@ -38,62 +32,3 @@ export const fuseConfig: FuseConfig = {
     }
   }
 };
-
-export const navigation: FuseNavigation[] = [
-  {
-    id: "server",
-    title: "Server",
-    translate: "NAV.SERVER",
-    type: "collapsable",
-    children: [
-      {
-        id: "instances",
-        title: "Instances",
-        translate: "NAV.INSTANCES",
-        type: "item",
-        icon: "storage",
-        component: InstancesComponent
-      },
-      {
-        id: "accounts",
-        title: "Accounts",
-        translate: "NAV.ACCOUNTS",
-        type: "item",
-        icon: "account_circle",
-        component: AccountsComponent
-      },
-      {
-        id: "task",
-        title: "Task",
-        translate: "NAV.TASK",
-        type: "item",
-        icon: "storage",
-        component: TaskComponent
-      }
-    ]
-  },
-  {
-    id: "item",
-    title: "Item",
-    translate: "NAV.ITEM",
-    type: "collapsable",
-    children: [
-      {
-        id: "items",
-        title: "Items",
-        translate: "NAV.ITEMS",
-        type: "item",
-        icon: "storage",
-        component: ItemsComponent
-      },
-      {
-        id: "currencies",
-        title: "Currencies",
-        translate: "NAV.CURRENCIES",
-        type: "item",
-        icon: "attach_money",
-        component: CurrenciesComponent
-      }
-    ]
-  }
-];
