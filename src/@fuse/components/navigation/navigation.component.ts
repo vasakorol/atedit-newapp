@@ -6,10 +6,8 @@ import {
   OnInit,
   ViewEncapsulation
 } from "@angular/core";
-import { merge, Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-
 import { FuseNavigationService } from "@fuse/components/navigation/navigation.service";
+import { FuseNavigation } from "../../types";
 
 @Component({
   selector: "fuse-navigation",
@@ -20,42 +18,23 @@ import { FuseNavigationService } from "@fuse/components/navigation/navigation.se
 })
 export class FuseNavigationComponent implements OnInit {
   @Input()
-  layout = "vertical";
+  public layout = "vertical";
 
-  @Input()
-  navigation: any;
-
-  private _unsubscribeAll = new Subject();
+  public navigation: FuseNavigation[] = [];
 
   constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _fuseNavigationService: FuseNavigationService
+    private changeDetectorRef: ChangeDetectorRef,
+    private fuseNavigationService: FuseNavigationService
   ) {}
 
-  /**
-   * On init
-   */
-  ngOnInit(): void {
-    this.navigation =
-      this.navigation || this._fuseNavigationService.getCurrentNavigation();
+  public ngOnInit(): void {
+    this.init();
+  }
 
-    this._fuseNavigationService.onNavigationChanged
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(() => {
-        this.navigation = this._fuseNavigationService.getCurrentNavigation();
-        this._changeDetectorRef.markForCheck();
-      });
-
-    // Subscribe to navigation item
-    merge(
-      this._fuseNavigationService.onNavigationItemAdded,
-      this._fuseNavigationService.onNavigationItemUpdated,
-      this._fuseNavigationService.onNavigationItemRemoved
-    )
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(() => {
-        // Mark for check
-        this._changeDetectorRef.markForCheck();
-      });
+  private init() {
+    this.fuseNavigationService.navigation.subscribe(navigation => {
+      this.navigation = navigation;
+      this.changeDetectorRef.markForCheck();
+    });
   }
 }

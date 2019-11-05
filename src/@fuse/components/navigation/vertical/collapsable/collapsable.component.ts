@@ -9,8 +9,7 @@ import {
 import { NavigationEnd, Router } from "@angular/router";
 import { merge, Subject } from "rxjs";
 import { filter, takeUntil } from "rxjs/operators";
-
-import { FuseNavigationItem } from "@fuse/types";
+import { FuseNavigation, FuseNavigationItem } from "@fuse/types";
 import { fuseAnimations } from "@fuse/animations";
 import { FuseNavigationService } from "@fuse/components/navigation/navigation.service";
 
@@ -22,16 +21,15 @@ import { FuseNavigationService } from "@fuse/components/navigation/navigation.se
 })
 export class FuseNavVerticalCollapsableComponent implements OnInit, OnDestroy {
   @Input()
-  item: FuseNavigationItem;
+  public item: FuseNavigationItem;
 
   @HostBinding("class")
-  classes = "nav-collapsable nav-item";
+  public classes = "nav-collapsable nav-item";
 
   @HostBinding("class.open")
   public isOpen = false;
 
-  // Private
-  private _unsubscribeAll: Subject<any>;
+  private _unsubscribeAll = new Subject();
 
   /**
    * Constructor
@@ -44,14 +42,7 @@ export class FuseNavVerticalCollapsableComponent implements OnInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _fuseNavigationService: FuseNavigationService,
     private _router: Router
-  ) {
-    // Set the private defaults
-    this._unsubscribeAll = new Subject();
-  }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
+  ) {}
 
   /**
    * On init
@@ -64,8 +55,6 @@ export class FuseNavVerticalCollapsableComponent implements OnInit, OnDestroy {
         takeUntil(this._unsubscribeAll)
       )
       .subscribe((event: NavigationEnd) => {
-        // Check if the url can be found in
-        // one of the children of this item
         if (this.isUrlInChildren(this.item, event.urlAfterRedirects)) {
           this.expand();
         } else {
@@ -76,7 +65,7 @@ export class FuseNavVerticalCollapsableComponent implements OnInit, OnDestroy {
     // Listen for collapsing of any navigation item
     this._fuseNavigationService.onItemCollapsed
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(clickedItem => {
+      .subscribe((clickedItem: FuseNavigation) => {
         if (clickedItem && clickedItem.children) {
           // Check if the clicked item is one
           // of the children of this item

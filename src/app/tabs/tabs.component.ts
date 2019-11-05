@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-import { Tab, TabsService } from "../services/tabs.service";
+import { TabsService } from "../services/tabs.service";
+import { Tab } from "./tabs.data";
 
 @Component({
   selector: "atv-tabs",

@@ -12,8 +12,9 @@ import { takeUntil } from "rxjs/operators";
 
 import { FuseNavigationItem } from "@fuse/types";
 import { FuseNavigationService } from "@fuse/components/navigation/navigation.service";
-import { Tab, TabsService } from "../../../../../app/services/tabs.service";
+import { TabsService } from "../../../../../app/services/tabs.service";
 import { FuseSidebarService } from "../../../sidebar/sidebar.service";
+import { Tab } from "../../../../../app/tabs/tabs.data";
 
 @Component({
   selector: "fuse-nav-vertical-item",
@@ -21,11 +22,9 @@ import { FuseSidebarService } from "../../../sidebar/sidebar.service";
   styleUrls: ["./item.component.scss"]
 })
 export class FuseNavVerticalItemComponent implements OnInit, OnDestroy {
-  @HostBinding("class")
-  classes = "nav-item";
+  @HostBinding("class") public classes = "nav-item";
 
-  @Input()
-  item: FuseNavigationItem;
+  @Input() public item: FuseNavigationItem;
 
   private _unsubscribeAll = new Subject();
 
@@ -44,7 +43,6 @@ export class FuseNavVerticalItemComponent implements OnInit, OnDestroy {
     )
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(() => {
-        // Mark for check
         this._changeDetectorRef.markForCheck();
       });
   }
@@ -54,12 +52,15 @@ export class FuseNavVerticalItemComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  public openComponent(title: string, component: Type<any>) {
+  public openComponent(item: FuseNavigationItem) {
+    const selectedTab = this.tabsService.tabById(item.id);
     const tab: Tab = {
-      id: title.toLowerCase().replace(".", "_"),
-      title,
+      id: item.id,
+      icon: item.icon,
+      title: item.title,
+      type: selectedTab.type,
       active: true,
-      component
+      component: selectedTab.component
     };
     this.tabsService.addTab(tab);
     this._fuseSidebarService.getSidebar("navbar").toggleOpen();

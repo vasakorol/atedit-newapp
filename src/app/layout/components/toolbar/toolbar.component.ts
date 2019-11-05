@@ -2,10 +2,9 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { TranslateService } from "@ngx-translate/core";
-import * as _ from "lodash";
 import { FuseConfigService } from "@fuse/services/config.service";
 import { FuseSidebarService } from "@fuse/components/sidebar/sidebar.service";
-import { navigation } from "../../../fuse-config";
+import { FuseNavigationService } from "@fuse/components/navigation/navigation.service";
 
 interface Language {
   id: string;
@@ -30,7 +29,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   public rightNavbar: boolean;
   public hiddenNavbar: boolean;
   public languages: Language[];
-  public navigation = navigation;
+  public navigation = this.fuseNavigationService.navigation;
   public selectedLanguage: Language = null;
 
   // TODO instead of show user status, we need to show server status, online or offline
@@ -55,16 +54,14 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   constructor(
     private _fuseConfigService: FuseConfigService,
     private _fuseSidebarService: FuseSidebarService,
-    private _translateService: TranslateService
+    private _translateService: TranslateService,
+    private readonly fuseNavigationService: FuseNavigationService
   ) {
     // TODO dynamic languages
     this.languages = [{ id: "en", title: "English", flag: "us" }];
   }
 
-  /**
-   * On init
-   */
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this._fuseConfigService.config
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(settings => {
@@ -78,10 +75,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     );
   }
 
-  /**
-   * On destroy
-   */
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
@@ -91,7 +85,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
    *
    * @param key
    */
-  toggleSidebarOpen(key): void {
+  public toggleSidebarOpen(key): void {
     this._fuseSidebarService.getSidebar(key).toggleOpen();
   }
 
@@ -100,7 +94,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
    *
    * @param value
    */
-  search(value): void {
+  public search(value): void {
     console.log(value);
   }
 
@@ -109,7 +103,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
    *
    * @param lang
    */
-  setLanguage(lang): void {
+  public setLanguage(lang): void {
     this.selectedLanguage = lang;
     this._translateService.use(lang.id);
   }
