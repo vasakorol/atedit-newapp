@@ -20,12 +20,7 @@ export class FuseModule {
   static forRoot(config): ModuleWithProviders {
     return {
       ngModule: FuseModule,
-      providers: [
-        {
-          provide: FUSE_CONFIG,
-          useValue: config
-        }
-      ]
+      providers: [{ provide: FUSE_CONFIG, useValue: config }]
     };
   }
 }

@@ -7,7 +7,10 @@ import { MatDialogRef } from "@angular/material/dialog";
   styleUrls: ["./confirm-dialog.component.scss"]
 })
 export class FuseConfirmDialogComponent {
-  public confirmMessage: string;
+  public confirmMessage: string = "";
+  public confirmTitle: string = "";
+  public confirmAcceptButton: string = "";
+  public confirmCancelButton: string = "";
 
   /**
    * Constructor

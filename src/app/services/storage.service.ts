@@ -1,6 +1,11 @@
 import { Injectable } from "@angular/core";
 declare var remote: any;
 
+export enum StorageKeys {
+  storageProfilesKey = "storage_profiles_key",
+  storageTabsKey = "storage_tabs_key"
+}
+
 @Injectable({
   providedIn: "root"
 })

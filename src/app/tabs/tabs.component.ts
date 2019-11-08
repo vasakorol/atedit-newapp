@@ -4,6 +4,7 @@ import { takeUntil } from "rxjs/operators";
 import { TabsService } from "../services/tabs.service";
 import { Tab } from "./tabs.data";
 import { MatTabChangeEvent } from "@angular/material/tabs";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "atv-tabs",
@@ -16,7 +17,10 @@ export class TabsComponent implements OnInit {
   public tabs = this.tabsService.tabs.pipe(takeUntil(this.destroyer));
   public selectedTab = 0;
 
-  constructor(private readonly tabsService: TabsService) {}
+  constructor(
+    private readonly router: Router,
+    private readonly tabsService: TabsService
+  ) {}
 
   public ngOnInit(): void {
     this.tabs.pipe(takeUntil(this.destroyer)).subscribe(tabs => {
