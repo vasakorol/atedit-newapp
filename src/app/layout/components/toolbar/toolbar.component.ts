@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { Observable, Subject } from "rxjs";
+import { filter, map, switchMap, take, takeUntil, tap } from "rxjs/operators";
 import { TranslateService } from "@ngx-translate/core";
 import { FuseConfigService } from "@fuse/services/config.service";
 import { FuseSidebarService } from "@fuse/components/sidebar/sidebar.service";
 import { FuseNavigationService } from "@fuse/components/navigation/navigation.service";
+import { Router } from "@angular/router";
+import { ProfilesService } from "../../../settings/profiles/profiles.service";
+import { Profile } from "../../../settings/profiles/profile.data";
 
 interface Language {
   id: string;
@@ -25,6 +28,8 @@ interface StatusOption {
   encapsulation: ViewEncapsulation.None
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
+  private destroyer = new Subject();
+
   public horizontalNavbar: boolean;
   public rightNavbar: boolean;
   public hiddenNavbar: boolean;
@@ -49,9 +54,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     }
   ];
 
-  private _unsubscribeAll = new Subject();
+  public profile: Profile = null;
+  public profiles: Profile[] = [];
 
   constructor(
+    private readonly router: Router,
+    private readonly profilesService: ProfilesService,
     private _fuseConfigService: FuseConfigService,
     private _fuseSidebarService: FuseSidebarService,
     private _translateService: TranslateService,
@@ -63,7 +71,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this._fuseConfigService.config
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(takeUntil(this.destroyer))
       .subscribe(settings => {
         this.horizontalNavbar = settings.layout.navbar.position === "top";
         this.rightNavbar = settings.layout.navbar.position === "right";
@@ -73,11 +81,17 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.selectedLanguage = this.languages.find(
       language => language.id === this._translateService.currentLang
     );
-  }
-
-  public ngOnDestroy(): void {
-    this._unsubscribeAll.next();
-    this._unsubscribeAll.complete();
+    this.profilesService.getProfiles();
+    this.profilesService.profiles
+      .pipe(takeUntil(this.destroyer))
+      .subscribe(profiles => {
+        this.profiles = profiles.filter(
+          profile => !profile.deleted && !profile.selected
+        );
+        this.profile = profiles.find(
+          profile => !profile.deleted && profile.selected
+        );
+      });
   }
 
   /**
@@ -106,5 +120,18 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   public setLanguage(lang): void {
     this.selectedLanguage = lang;
     this._translateService.use(lang.id);
+  }
+
+  public redirectToProfiles() {
+    return this.router.navigate(["/profiles"]);
+  }
+
+  public selectProfile(id: string): void {
+    this.profilesService.toggleSelected(id);
+  }
+
+  public ngOnDestroy(): void {
+    this.destroyer.next();
+    this.destroyer.complete();
   }
 }

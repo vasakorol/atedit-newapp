@@ -15,6 +15,7 @@ import { FuseNavigationService } from "@fuse/components/navigation/navigation.se
 import { TabsService } from "../../../../../app/services/tabs.service";
 import { FuseSidebarService } from "../../../sidebar/sidebar.service";
 import { Tab } from "../../../../../app/tabs/tabs.data";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "fuse-nav-vertical-item",
@@ -32,7 +33,8 @@ export class FuseNavVerticalItemComponent implements OnInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _fuseNavigationService: FuseNavigationService,
     private readonly _fuseSidebarService: FuseSidebarService,
-    private readonly tabsService: TabsService
+    private readonly tabsService: TabsService,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +55,9 @@ export class FuseNavVerticalItemComponent implements OnInit, OnDestroy {
   }
 
   public openComponent(item: FuseNavigationItem) {
+    if (this.router.url !== "/") {
+      this.router.navigate([""]);
+    }
     const selectedTab = this.tabsService.tabById(item.id);
     const tab: Tab = {
       id: item.id,

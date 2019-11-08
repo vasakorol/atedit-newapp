@@ -1,24 +1,24 @@
-import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { HttpClientModule } from "@angular/common/http";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { TranslateModule } from "@ngx-translate/core";
+import "hammerjs";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { FuseModule } from "@fuse/fuse.module";
-import "hammerjs";
 
-import { TranslateModule } from "@ngx-translate/core";
+import { FuseModule } from "@fuse/fuse.module";
+
 import { fuseConfig } from "./fuse-config";
-import { HttpClientModule } from "@angular/common/http";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatMomentDateModule } from "@angular/material-moment-adapter";
-import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
 import {
+  FuseConfirmDialogModule,
   FuseProgressBarModule,
   FuseSidebarModule,
   FuseThemeOptionsModule
 } from "@fuse/components";
 import { FuseSharedModule } from "@fuse/shared.module";
+
 import { LayoutModule } from "./layout/layout.module";
 import { TabsComponent } from "./tabs/tabs.component";
 import { TabComponent } from "./tabs/tab/tab.component";
@@ -28,7 +28,10 @@ import { CurrenciesComponent } from "./components/currencies/currencies.componen
 import { ItemsComponent } from "./components/items/items.component";
 import { InstancesComponent } from "./components/instances/instances.component";
 import { TaskComponent } from "./components/task/task.component";
-import { MatTabsModule } from "@angular/material/tabs";
+import { ProfilesComponent } from "./settings/profiles/profiles.component";
+import { ProfilesFormComponent } from "./settings/profiles/profiles-form/profiles-form.component";
+import { MaterialModule } from "./material.module";
+import { FuseConfirmDialogComponent } from "../@fuse/components/confirm-dialog/confirm-dialog.component";
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import { MatTabsModule } from "@angular/material/tabs";
     CurrenciesComponent,
     ItemsComponent,
     InstancesComponent,
-    TaskComponent
+    TaskComponent,
+    ProfilesComponent,
+    ProfilesFormComponent
   ],
   imports: [
     BrowserModule,
@@ -48,18 +53,13 @@ import { MatTabsModule } from "@angular/material/tabs";
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot(),
-
-    MatMomentDateModule,
-    MatButtonModule,
-    MatIconModule,
-    MatTabsModule,
-
+    MaterialModule,
     FuseModule.forRoot(fuseConfig),
     FuseProgressBarModule,
     FuseSharedModule,
     FuseSidebarModule,
     FuseThemeOptionsModule,
-
+    FuseConfirmDialogModule,
     LayoutModule
   ],
   providers: [],
@@ -69,7 +69,8 @@ import { MatTabsModule } from "@angular/material/tabs";
     CurrenciesComponent,
     ItemsComponent,
     InstancesComponent,
-    TaskComponent
+    TaskComponent,
+    ProfilesFormComponent
   ]
 })
 export class AppModule {}

@@ -5,6 +5,7 @@
 @import "src/@fuse/components/sidebar/sidebar.theme";
 @import "src/@fuse/components/theme-options/theme-options.theme";
 @import "src/@fuse/components/widget/widget.theme";
+@import "main.theme";
 
 @mixin fuse-core-theme($theme) {
   // Theming for Fuse core styles
@@ -25,4 +26,7 @@
 
   // Theming for 3rd party components
   @include ngx-datatable-theme($theme);
+
+  //OWN
+  @include main-theme($theme);
 }
