@@ -1,13 +1,14 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from '@angular/core';
 declare var remote: any;
 
 export enum StorageKeys {
-  storageProfilesKey = "storage_profiles_key",
-  storageTabsKey = "storage_tabs_key"
+  storageProfilesKey = 'storage_profiles_key',
+  storageTabsKey = 'storage_tabs_key',
+  storageTranslationKey = 'storage_translations_key',
 }
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class StorageService {
   private store: any;
@@ -19,7 +20,7 @@ export class StorageService {
    */
   constructor() {
     try {
-      const Store = remote.require("electron-store");
+      const Store = remote.require('electron-store');
       this.store = new Store();
       this.usingLocal = false;
     } catch (e) {

@@ -1,21 +1,25 @@
-import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
-import { DOCUMENT } from "@angular/common";
-import { Platform } from "@angular/cdk/platform";
-import { TranslateService } from "@ngx-translate/core";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-import { FuseConfigService } from "@fuse/services/config.service";
-import { FuseSidebarService } from "@fuse/components/sidebar/sidebar.service";
-import { FuseSplashScreenService } from "@fuse/services/splash-screen.service";
-import { FuseTranslationLoaderService } from "@fuse/services/translation-loader.service";
-
-import { locale as navigationEnglish } from "app/navigation/i18n/en";
-import { fuseConfig } from "./fuse-config";
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
+import {DOCUMENT} from '@angular/common';
+import {Platform} from '@angular/cdk/platform';
+import {TranslateService} from '@ngx-translate/core';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {FuseConfigService} from '@fuse/services/config.service';
+import {FuseSidebarService} from '@fuse/components/sidebar/sidebar.service';
+import {FuseSplashScreenService} from '@fuse/services/splash-screen.service';
+import {fuseConfig} from './fuse-config';
+import {TranslationService} from './settings/translation/translation.service';
 
 @Component({
-  selector: "atv-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  selector: 'atv-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
   public fuseConfig = fuseConfig;
@@ -26,58 +30,15 @@ export class AppComponent implements OnInit, OnDestroy {
     private _fuseConfigService: FuseConfigService,
     private _fuseSidebarService: FuseSidebarService,
     private _fuseSplashScreenService: FuseSplashScreenService,
-    private _fuseTranslationLoaderService: FuseTranslationLoaderService,
     private _translateService: TranslateService,
-    private _platform: Platform
+    private _platform: Platform,
+    private readonly translationService: TranslationService
   ) {
-    // Add languages
-    this._translateService.addLangs(["en"]);
-
-    // Set the default language
-    this._translateService.setDefaultLang("en");
-
-    // Set the translations
-    this._fuseTranslationLoaderService.loadTranslations(navigationEnglish);
-
-    // Use a language
-    this._translateService.use("en");
-
-    /**
-     * ----------------------------------------------------------------------------------------------------
-     * ngxTranslate Fix Start
-     * ----------------------------------------------------------------------------------------------------
-     */
-
-    /**
-     * If you are using a language other than the default one, i.e. Turkish in this case,
-     * you may encounter an issue where some of the components are not actually being
-     * translated when your app first initialized.
-     *
-     * This is related to ngxTranslate module and below there is a temporary fix while we
-     * are moving the multi language implementation over to the Angular's core language
-     * service.
-     **/
-
-    // Set the default language to 'en' and then back to 'tr'.
-    // '.use' cannot be used here as ngxTranslate won't switch to a language that's already
-    // been selected and there is no way to force it, so we overcome the issue by switching
-    // the default language back and forth.
-    /**
-     setTimeout(() => {
-            this._translateService.setDefaultLang('en');
-            this._translateService.setDefaultLang('tr');
-         });
-     */
-
-    /**
-     * ----------------------------------------------------------------------------------------------------
-     * ngxTranslate Fix End
-     * ----------------------------------------------------------------------------------------------------
-     */
+    this.translationService.translationLoading();
 
     // Add is-mobile class to the body if the platform is mobile
     if (this._platform.ANDROID || this._platform.IOS) {
-      this.document.body.classList.add("is-mobile");
+      this.document.body.classList.add('is-mobile');
     }
   }
 
@@ -89,17 +50,17 @@ export class AppComponent implements OnInit, OnDestroy {
         this.fuseConfig = config;
 
         // Boxed
-        if (this.fuseConfig.layout.width === "boxed") {
-          this.document.body.classList.add("boxed");
+        if (this.fuseConfig.layout.width === 'boxed') {
+          this.document.body.classList.add('boxed');
         } else {
-          this.document.body.classList.remove("boxed");
+          this.document.body.classList.remove('boxed');
         }
 
         // Color theme - Use normal for loop for IE11 compatibility
         for (let i = 0; i < this.document.body.classList.length; i++) {
           const className = this.document.body.classList[i];
 
-          if (className.startsWith("theme-")) {
+          if (className.startsWith('theme-')) {
             this.document.body.classList.remove(className);
           }
         }
