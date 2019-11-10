@@ -11,13 +11,15 @@
         <mat-icon
           class="logo-icon mr-16"
           [@animate]="{value: '*', params: {delay: '50ms', scale: '0.2'}}"
-          >account_box</mat-icon
         >
+          account_box
+        </mat-icon>
         <span
           class="logo-text h1"
           [@animate]="{value: '*', params: {delay: '100ms', x: '-25px'}}"
-          >{{ 'PROFILES.TITLE' | translate }}</span
         >
+          {{ 'TRANSLATIONS.TITLE' | translate }}
+        </span>
       </div>
     </div>
 
@@ -27,7 +29,7 @@
           <mat-icon>search</mat-icon>
           <input
             [formControl]="searchInput"
-            [placeholder]="'PROFILES.SEARCH_PLACEHOLDER' | translate"
+            [placeholder]="'TRANSLATIONS.SEARCH_PLACEHOLDER' | translate"
           />
         </div>
       </div>
@@ -37,58 +39,62 @@
   <div class="content">
     <div class="center p-24 pb-56" fusePerfectScrollbar>
       <div class="content">
-        <mat-table [dataSource]="profiles" [@animateStagger]="{value: '50'}">
+        <mat-table
+          [dataSource]="translations"
+          [@animateStagger]="{value: '50'}"
+        >
           <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>{{
-              'PROFILES.NAME' | translate
-            }}</mat-header-cell>
-            <mat-cell *matCellDef="let profile">
-              <p class="text-truncate font-weight-600">{{ profile.name }}</p>
+            <mat-header-cell *matHeaderCellDef>
+              {{ 'TRANSLATIONS.NAME' | translate }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let translation">
+              <p class="text-truncate font-weight-600">
+                {{ translation.name }}
+                <ng-container *ngIf="translation.default">
+                  {{ 'TRANSLATIONS.DEFAULT' | translate }}
+                </ng-container>
+              </p>
             </mat-cell>
           </ng-container>
-          <ng-container matColumnDef="databases">
-            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>{{
-              'PROFILES.DATABASE_COUNT' | translate
-            }}</mat-header-cell>
-            <mat-cell *matCellDef="let profile" fxHide fxShow.gt-xs>
-              <p class="email text-truncate">{{ profile.databases.length }}</p>
-            </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="game_folder">
-            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>{{
-              'PROFILES.GAME_FOLDER' | translate
-            }}</mat-header-cell>
-            <mat-cell *matCellDef="let profile" fxHide fxShow.gt-sm>
-              <p class="phone text-truncate">{{ profile.game_folder }}</p>
+
+          <ng-container matColumnDef="code">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>
+              {{ 'TRANSLATIONS.CODE' | translate }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let translation" fxHide fxShow.gt-xs>
+              <p class="email text-truncate">
+                {{ translation.code | uppercase }}
+              </p>
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="selected">
-            <mat-header-cell *matHeaderCellDef>{{
-              'PROFILES.SELECTED' | translate
-            }}</mat-header-cell>
-            <mat-cell *matCellDef="let profile">
+            <mat-header-cell *matHeaderCellDef>
+              {{ 'TRANSLATIONS.SELECTED' | translate }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let translation">
               <button
                 mat-icon-button
                 [attr.aria-label]="
-                  (profile.selected
-                    ? 'PROFILES.MARK_AS_SELECTED'
-                    : 'PROFILES.MARK_AS_UNSELECTED') | translate
+                  (translation.selected
+                    ? 'TRANSLATIONS.MARK_AS_SELECTED'
+                    : 'TRANSLATIONS.MARK_AS_UNSELECTED') | translate
                 "
-                (click)="$event.stopPropagation(); toggleSelected(profile.id)"
+                (click)="
+                  $event.stopPropagation(); toggleSelected(translation.id)
+                "
               >
-                <mat-icon [class.profile_selected]="profile.selected"
-                  >check_circle</mat-icon
-                >
+                <mat-icon [class.translation_selected]="translation.selected">
+                  check_circle
+                </mat-icon>
               </button>
             </mat-cell>
           </ng-container>
 
-          <!-- Buttons Column -->
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell
-              *matCellDef="let profile"
+              *matCellDef="let translation"
               fxLayoutAlign="flex-end"
               stickyEnd
             >
@@ -102,20 +108,31 @@
               </button>
               <mat-menu #moreMenu="matMenu">
                 <button
+                  *ngIf="!translation.default"
                   mat-menu-item
-                  aria-label="remove"
-                  (click)="editProfile(profile)"
+                  aria-label="edit"
+                  (click)="edit(translation)"
                 >
                   <mat-icon>edit</mat-icon>
                   <span>{{ 'ACTIONS.EDIT' | translate }}</span>
                 </button>
                 <button
+                  *ngIf="!translation.default"
                   mat-menu-item
                   aria-label="remove"
-                  (click)="removeProfile(profile)"
+                  (click)="remove(translation)"
                 >
                   <mat-icon>delete</mat-icon>
                   <span>{{ 'ACTIONS.REMOVE' | translate }}</span>
+                </button>
+                <button
+                  *ngIf="translation.default"
+                  mat-menu-item
+                  aria-label="download"
+                  (click)="download(translation.id)"
+                >
+                  <mat-icon>save_alt</mat-icon>
+                  <span>{{ 'ACTIONS.DOWNLOAD_SAMPLE' | translate }}</span>
                 </button>
               </mat-menu>
             </mat-cell>
@@ -123,9 +140,8 @@
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row
-            *matRowDef="let profile; columns: displayedColumns"
+            *matRowDef="let translation; columns: displayedColumns"
             class="contact"
-            (click)="editProfile(profile.id)"
             matRipple
             [@animate]="{value: '*', params: {y: '100%'}}"
           ></mat-row>
@@ -138,8 +154,8 @@
 <button
   mat-fab
   class="accent fab-add-button"
-  (click)="addProfile()"
-  [attr.aria-label]="'PROFILES.ADD' | translate"
+  (click)="create()"
+  [attr.aria-label]="'TRANSLATIONS.ADD' | translate"
   [@animate]="{value: '*', params: {delay: '300ms', scale: '.2'}}"
 >
   <mat-icon>add</mat-icon>

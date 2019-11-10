@@ -23,13 +23,12 @@
     <div class="" fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
       <button mat-button [matMenuTriggerFor]="profilesMenu" class="user-button">
         <div fxLayout="row" fxLayoutAlign="center center">
-          <span class="mr-12" fxShow.gt-sm>{{
-            profile ? profile.name : ("PROFILES.NOT_SELECTED" | translate)
-          }}</span>
+          <span class="mr-12" fxShow.gt-sm>
+            {{ profile ? profile.name : ('PROFILES.NOT_SELECTED' | translate) }}
+          </span>
           <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
         </div>
       </button>
-
       <mat-menu #profilesMenu="matMenu">
         <button
           *ngIf="profiles.length >= 1"
@@ -38,7 +37,7 @@
           (click)="redirectToProfiles()"
         >
           <mat-icon>account_circle</mat-icon>
-          <span>{{ "PROFILES.SAVED_PROFILES" | translate }}</span>
+          <span>{{ 'PROFILES.SAVED_PROFILES' | translate }}</span>
         </button>
         <button
           *ngIf="profiles.length == 0"
@@ -46,10 +45,9 @@
           (click)="redirectToProfiles()"
         >
           <mat-icon>account_circle</mat-icon>
-          <span>{{ "PROFILES.SAVED_PROFILES" | translate }}</span>
+          <span>{{ 'PROFILES.SAVED_PROFILES' | translate }}</span>
         </button>
       </mat-menu>
-
       <mat-menu #savedProfilesMenu="matMenu">
         <button
           *ngFor="let profile of profiles"
@@ -61,36 +59,48 @@
       </mat-menu>
 
       <div class="toolbar-separator"></div>
+
       <button
         mat-button
         fxHide
         fxShow.gt-xs
         class="language-button"
-        *ngIf="selectedLanguage"
+        *ngIf="selectedTranslation | async as currentTranslation"
         [matMenuTriggerFor]="languageMenu"
       >
         <div fxLayout="row" fxLayoutAlign="center center">
           <img
-            *ngIf="false"
             class="flag mr-8"
-            [src]="'assets/icons/flags/' + selectedLanguage.flag + '.png'"
+            [src]="
+              'assets/icons/flags/' +
+              (currentTranslation.code | lowercase) +
+              '.svg'
+            "
+            onerror="this.src='assets/icons/flags/int.svg';"
           />
-          <span class="iso text-uppercase">{{ selectedLanguage.id }}</span>
+          <span class="iso text-uppercase">
+            {{ currentTranslation.code | uppercase }}
+          </span>
         </div>
       </button>
+
       <mat-menu #languageMenu="matMenu" [overlapTrigger]="false">
         <button
           mat-menu-item
-          *ngFor="let lang of languages"
-          (click)="setLanguage(lang)"
+          *ngFor="let translation of translations | async"
+          (click)="changeTranslation(translation.id)"
         >
           <span fxLayout="row" fxLayoutAlign="start center">
             <img
-              *ngIf="false"
               class="flag mr-16"
-              [src]="'assets/icons/flags/' + lang.flag + '.png'"
+              [src]="
+                'assets/icons/flags/' + (translation.code | lowercase) + '.svg'
+              "
+              onerror="this.src='assets/icons/flags/int.svg';"
             />
-            <span class="iso">{{ lang.title }}</span>
+            <span class="iso">
+              {{ translation.name }} ({{ translation.code | uppercase }})
+            </span>
           </span>
         </button>
       </mat-menu>

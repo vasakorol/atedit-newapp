@@ -1,9 +1,9 @@
 // Import Fuse core library
-@import "@fuse/scss/core";
-@import "@fuse/scss/fuse";
+@import '@fuse/scss/core';
+@import '@fuse/scss/fuse';
 
 // Import app.theme.scss
-@import "app/app.theme";
+@import 'app/app.theme';
 
 .header {
   .search-wrapper {
@@ -47,26 +47,38 @@
     padding: 0;
     z-index: 99;
 
-    @include media-breakpoint("xs") {
+    @include media-breakpoint('xs') {
       position: sticky;
       top: calc(100vh - 120px);
       bottom: auto;
+    }
+
+    .mat-button-wrapper {
+      padding: 10px 0;
+      line-height: 36px;
+      .material-icons {
+        font-size: 36px;
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
+      }
     }
   }
 }
 
 .confirm-dialog {
   width: 350px;
-  @include media-breakpoint("xs") {
+  @include media-breakpoint('xs') {
     width: 250px;
   }
 }
 
+.small-form-dialog,
 .profile-form-dialog {
-  @include media-breakpoint("xs") {
+  @include media-breakpoint('xs') {
     width: 100%;
   }
-  @include media-breakpoint("gt-xs") {
+  @include media-breakpoint('gt-xs') {
     width: 800px;
   }
   .mat-dialog-container {
@@ -83,6 +95,11 @@
     max-height: 85vh;
     display: flex;
     flex-direction: column;
+  }
+}
+.small-form-dialog {
+  @include media-breakpoint('gt-xs') {
+    width: 480px;
   }
 }
 
@@ -119,4 +136,8 @@
 
 .mat-dialog-actions {
   justify-content: space-around;
+}
+
+.flag {
+  width: 16px;
 }

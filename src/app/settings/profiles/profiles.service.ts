@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { ReplaySubject } from "rxjs";
-import { Profile } from "./profile.data";
-import { StorageKeys, StorageService } from "../../services/storage.service";
-import * as uuiv4 from "uuid/v4";
+import {Injectable} from '@angular/core';
+import {ReplaySubject} from 'rxjs';
+import {Profile} from './profile';
+import {StorageKeys, StorageService} from '../../services/storage.service';
+import * as uuiv4 from 'uuid/v4';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class ProfilesService {
   private readonly profilesStream = new ReplaySubject<Profile[]>(1);

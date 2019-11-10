@@ -1,8 +1,8 @@
 export const dataBase = [
-  "admin",
-  "atavism",
-  "master",
-  "world_content"
+  'admin',
+  'atavism',
+  'master',
+  'world_content',
 ] as const;
 export type DataBase = (typeof dataBase)[number];
 
@@ -23,6 +23,6 @@ export interface Profile {
   deleted: boolean;
 }
 export enum FormType {
-  edit = "edit",
-  new = "new"
+  edit = 'edit',
+  new = 'new',
 }
