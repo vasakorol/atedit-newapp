@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ProfilesFormComponent } from "./profiles-form.component";
+import {ProfilesFormComponent} from './profiles-form.component';
 
-describe("ProfilesFormComponent", () => {
+describe('ProfilesFormComponent', () => {
   let component: ProfilesFormComponent;
   let fixture: ComponentFixture<ProfilesFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ProfilesFormComponent]
+      declarations: [ProfilesFormComponent],
     }).compileComponents();
   }));
 
@@ -18,7 +18,7 @@ describe("ProfilesFormComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

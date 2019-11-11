@@ -1,15 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-import { TabsService } from "../services/tabs.service";
-import { Tab } from "./tabs.data";
-import { MatTabChangeEvent } from "@angular/material/tabs";
-import { Router } from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {TabsService} from '../services/tabs.service';
+import {Tab} from './tabs.data';
+import {MatTabChangeEvent} from '@angular/material/tabs';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: "atv-tabs",
-  templateUrl: "./tabs.component.html",
-  styleUrls: ["./tabs.component.scss"]
+  selector: 'atv-tabs',
+  templateUrl: './tabs.component.html',
+  styleUrls: ['./tabs.component.scss'],
 })
 export class TabsComponent implements OnInit {
   private destroyer = new Subject();

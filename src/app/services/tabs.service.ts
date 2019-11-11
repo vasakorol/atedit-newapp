@@ -1,10 +1,10 @@
-import { StorageKeys, StorageService } from "./storage.service";
-import { Injectable } from "@angular/core";
-import { ReplaySubject } from "rxjs";
-import { Tab, tabs } from "../tabs/tabs.data";
+import {StorageKeys, StorageService} from './storage.service';
+import {Injectable} from '@angular/core';
+import {ReplaySubject} from 'rxjs';
+import {Tab, tabs} from '../tabs/tabs.data';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class TabsService {
   private tabsStream = new ReplaySubject<Tab[]>(1);
@@ -73,7 +73,7 @@ export class TabsService {
   private saveToStorage() {
     this.storageService.set(
       StorageKeys.storageTabsKey,
-      this.listTabs.map(tab => ({ id: tab.id, active: tab.active }))
+      this.listTabs.map(tab => ({id: tab.id, active: tab.active}))
     );
   }
 }
