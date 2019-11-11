@@ -1,0 +1,60 @@
+<button
+  class="mat-icon-button warn mat-elevation-z2 table-config-btn right-side-panel"
+  mat-icon-button=""
+  (click)="toggleSidebar()"
+>
+  <span class="mat-button-wrapper">
+    <mat-icon
+      class="mat-icon notranslate material-icons mat-icon-no-color"
+      role="img"
+      aria-hidden="true"
+      >settings</mat-icon
+    >
+  </span>
+  <div
+    class="mat-button-ripple mat-ripple mat-button-ripple-round"
+    matripple=""
+  ></div>
+  <div class="mat-button-focus-overlay"></div>
+</button>
+
+<fuse-sidebar
+  class="table-config-sidebar"
+  [name]="dataType + '-table-config-sidebar'"
+  position="right"
+>
+  <div class="header">
+    <h2 class="title">Table Options</h2>
+    <button
+      class="close-button mat-icon-button"
+      mat-icon-button=""
+      (click)="toggleSidebar()"
+    >
+      <span class="mat-button-wrapper">
+        <mat-icon
+          class="mat-icon notranslate material-icons mat-icon-no-color"
+          role="img"
+          aria-hidden="true"
+          >close
+        </mat-icon>
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple mat-button-ripple-round"
+        matripple=""
+      ></div>
+      <div class="mat-button-focus-overlay"></div>
+    </button>
+  </div>
+  <div class="group">
+    <h3 class="group-title">Toggle Columns Visibility</h3>
+    <div class="checkbox-wrapper" *ngFor="let key of configKeys">
+      <mat-checkbox
+        *ngIf="tableConfig[key].filterVisible"
+        [checked]="tableConfig[key].visible"
+        (change)="toggleColumnVisibility($event, key)"
+      >
+        {{ key }}
+      </mat-checkbox>
+    </div>
+  </div>
+</fuse-sidebar>

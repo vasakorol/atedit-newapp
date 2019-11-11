@@ -87,4 +87,18 @@ export const locale = {
     ITEMS: 'Items',
     CURRENCIES: 'Currencies',
   },
+  ACCOUNTS: {
+    ID: 'id',
+    MOD_ID: 'mod_id',
+    NAME: 'name',
+    FACTION: 'faction',
+    ISACTIVE: 'isActive',
+    CREATIONTIMESTAMP: 'creation timestamp',
+  },
+  CURRENCIES: {
+    GOLD: 'gold',
+    SILVER: 'silver',
+    BRONZE: 'bronze',
+    DIAMONDS: 'diamonds',
+  },
 };

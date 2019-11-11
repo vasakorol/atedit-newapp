@@ -1,12 +1,18 @@
-import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {TranslateModule} from '@ngx-translate/core';
+import {NgModule} from '@angular/core';
+
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {FuseModule} from '@fuse/fuse.module';
+
+import {TranslateModule} from '@ngx-translate/core';
 import {fuseConfig} from './fuse-config';
+import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTableModule} from '@angular/material/table';
 import {
   FuseConfirmDialogModule,
   FuseProgressBarModule,
@@ -23,6 +29,13 @@ import {CurrenciesComponent} from './components/currencies/currencies.component'
 import {ItemsComponent} from './components/items/items.component';
 import {InstancesComponent} from './components/instances/instances.component';
 import {TaskComponent} from './components/task/task.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {TableComponent} from './components/table/table.component';
+import {TableConfigComponent} from './components/table/table-config/table-config.component';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSelectModule} from '@angular/material/select';
+
 import {ProfilesComponent} from './settings/profiles/profiles.component';
 import {ProfilesFormComponent} from './settings/profiles/profiles-form/profiles-form.component';
 import {MaterialModule} from './material.module';
@@ -40,6 +53,8 @@ import {TranslationFormComponent} from './settings/translation/translation-form/
     ItemsComponent,
     InstancesComponent,
     TaskComponent,
+    TableComponent,
+    TableConfigComponent,
     ProfilesComponent,
     ProfilesFormComponent,
     TranslationComponent,
@@ -51,12 +66,23 @@ import {TranslationFormComponent} from './settings/translation/translation-form/
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot(),
+
+    MatMomentDateModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTabsModule,
+    MatTableModule,
+    MatRadioModule,
+    MatSelectModule,
+
     MaterialModule,
     FuseModule.forRoot(fuseConfig),
     FuseProgressBarModule,
     FuseSharedModule,
     FuseSidebarModule,
     FuseThemeOptionsModule,
+    MatCheckboxModule,
+    LayoutModule,
     FuseConfirmDialogModule,
     LayoutModule,
   ],

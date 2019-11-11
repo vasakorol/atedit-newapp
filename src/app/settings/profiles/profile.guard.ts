@@ -1,19 +1,19 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from '@angular/core';
 import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
-  Router
-} from "@angular/router";
-import { merge, Observable, of } from "rxjs";
-import { ProfilesService } from "./profiles.service";
-import { filter, mapTo, tap } from "rxjs/operators";
-import { matTooltipAnimations } from "@angular/material/tooltip";
-import { AppConfig } from "../../../environments/environment";
+  Router,
+} from '@angular/router';
+import {merge, Observable, of} from 'rxjs';
+import {ProfilesService} from './profiles.service';
+import {filter, mapTo, tap} from 'rxjs/operators';
+import {matTooltipAnimations} from '@angular/material/tooltip';
+import {AppConfig} from '../../../environments/environment';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class ProfileGuard implements CanActivate {
   constructor(
@@ -47,6 +47,6 @@ export class ProfileGuard implements CanActivate {
   private showWarningMessage() {}
 
   private redirectToProfiles() {
-    this.router.navigate(["profiles"]);
+    this.router.navigate(['profiles']);
   }
 }
