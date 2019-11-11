@@ -2,7 +2,7 @@
   <mat-toolbar matDialogTitle class="mat-accent m-0">
     <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
       <span class="title dialog-title">{{
-        "PROFILES.FORM.TITLE_" + (action | uppercase) | translate
+        'PROFILES.FORM.TITLE_' + (action | uppercase) | translate
       }}</span>
       <button
         mat-icon-button
@@ -19,7 +19,7 @@
       <div fxLayout="column">
         <div fxLayout="row" fxLayoutAlign="start start">
           <mat-form-field appearance="outline" fxFlex>
-            <mat-label>{{ "PROFILES.FORM.NAME" | translate }}</mat-label>
+            <mat-label>{{ 'PROFILES.FORM.NAME' | translate }}</mat-label>
             <input type="text" formControlName="name" matInput required />
           </mat-form-field>
         </div>
@@ -30,7 +30,7 @@
           class="field-input-one-row"
         >
           <mat-form-field appearance="outline" fxFlex>
-            <mat-label>{{ "PROFILES.FORM.GAME_FOLDER" | translate }}</mat-label>
+            <mat-label>{{ 'PROFILES.FORM.GAME_FOLDER' | translate }}</mat-label>
             <input
               type="text"
               formControlName="game_folder"
@@ -39,7 +39,7 @@
             />
           </mat-form-field>
           <button mat-raised-button type="button" (click)="chooseFolder()">
-            {{ "ACTIONS.CHOOSE_FOLDER" | translate }}
+            {{ 'ACTIONS.CHOOSE_FOLDER' | translate }}
           </button>
         </div>
 
@@ -49,7 +49,7 @@
           fxLayoutAlign="start start"
         >
           <mat-checkbox formControlName="selected">{{
-            "PROFILES.FORM.SELECTED" | translate
+            'PROFILES.FORM.SELECTED' | translate
           }}</mat-checkbox>
         </div>
       </div>
@@ -59,31 +59,31 @@
           fxFlex="0 1 calc(50% - 8px)"
           class="database-card-form"
           formArrayName="databases"
-          *ngFor="let item of form.get('databases').controls; let i = index"
+          *ngFor="let item of form.get('databases')?.controls; let i = index"
         >
           <mat-card-header>
             <mat-card-title>{{
-              "PROFILES.DATABASE.TYPE." + (dataBase[i] | uppercase) | translate
+              'PROFILES.DATABASE.TYPE.' + (dataBase[i] | uppercase) | translate
             }}</mat-card-title>
           </mat-card-header>
           <mat-card-content [formGroupName]="i">
             <input type="hidden" formControlName="type" />
             <div fxLayout="row" fxLayoutAlign="start start">
               <mat-form-field appearance="outline" fxFlex>
-                <mat-label>{{ "PROFILES.FORM.HOST" | translate }}</mat-label>
+                <mat-label>{{ 'PROFILES.FORM.HOST' | translate }}</mat-label>
                 <input type="text" formControlName="host" matInput required />
               </mat-form-field>
             </div>
             <div fxLayout="row" fxLayoutAlign="start start">
               <mat-form-field appearance="outline" fxFlex>
-                <mat-label>{{ "PROFILES.FORM.PORT" | translate }}</mat-label>
+                <mat-label>{{ 'PROFILES.FORM.PORT' | translate }}</mat-label>
                 <input type="text" formControlName="port" matInput />
               </mat-form-field>
             </div>
             <div fxLayout="row" fxLayoutAlign="start start">
               <mat-form-field appearance="outline" fxFlex>
                 <mat-label>{{
-                  "PROFILES.FORM.DATABASE" | translate
+                  'PROFILES.FORM.DATABASE' | translate
                 }}</mat-label>
                 <input
                   type="text"
@@ -95,14 +95,14 @@
             </div>
             <div fxLayout="row" fxLayoutAlign="start start">
               <mat-form-field appearance="outline" fxFlex>
-                <mat-label>{{ "PROFILES.FORM.USER" | translate }}</mat-label>
+                <mat-label>{{ 'PROFILES.FORM.USER' | translate }}</mat-label>
                 <input type="text" formControlName="user" matInput required />
               </mat-form-field>
             </div>
             <div fxLayout="row" fxLayoutAlign="start start">
               <mat-form-field appearance="outline" fxFlex>
                 <mat-label>{{
-                  "PROFILES.FORM.PASSWORD" | translate
+                  'PROFILES.FORM.PASSWORD' | translate
                 }}</mat-label>
                 <input
                   type="password"
@@ -120,7 +120,7 @@
               type="button"
               (click)="testConnection(item)"
             >
-              {{ "PROFILES.TEST_CONNECTION" | translate }}
+              {{ 'PROFILES.TEST_CONNECTION' | translate }}
             </button>
           </mat-card-actions>
         </mat-card>
@@ -142,7 +142,7 @@
       [disabled]="form.invalid"
       [attr.aria-label]="'ACTIONS.SAVE' | translate"
     >
-      {{ "ACTIONS.ADD" | translate }}
+      {{ 'ACTIONS.ADD' | translate }}
     </button>
 
     <button
@@ -153,7 +153,7 @@
       [disabled]="form.invalid"
       [attr.aria-label]="'ACTIONS.SAVE' | translate"
     >
-      {{ "ACTIONS.SAVE" | translate }}
+      {{ 'ACTIONS.SAVE' | translate }}
     </button>
   </div>
 </div>
