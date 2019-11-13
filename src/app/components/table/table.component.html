@@ -1,39 +1,47 @@
-<table mat-table [dataSource]="tableData" class="mat-elevation-z8 custom-table">
-  <ng-container
-    matColumnDef="{{ columnName }}"
-    *ngFor="let columnName of _displayedColumns"
+<div class="mat-elevation-z8">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8 custom-table"
   >
-    <th mat-header-cell *matHeaderCellDef>
-      {{ getTranslation(columnName) | translate }}
-    </th>
-    <td mat-cell *matCellDef="let element">
-      <span *ngIf="tableConfig[columnName].type !== isDropdown">
-        {{
-          tableConfig[columnName].type === isDate
-            ? parseDate(element[columnName])
-            : element[columnName]
-        }}
-      </span>
+    <ng-container
+      matColumnDef="{{ columnName }}"
+      *ngFor="let columnName of _displayedColumns"
+    >
+      <th mat-header-cell *matHeaderCellDef>
+        {{ getTranslation(columnName) | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="tableConfig[columnName].type !== isDropdown">
+          {{
+            tableConfig[columnName].type === isDate
+              ? parseDate(element[columnName])
+              : element[columnName]
+          }}
+        </span>
 
-      <span *ngIf="tableConfig[columnName].type === isDropdown">
-        <mat-form-field>
-          <mat-label>{{ getTranslation(columnName) | translate }}</mat-label>
-          <mat-select>
-            <mat-option
-              *ngFor="let item of tableConfig[columnName].data"
-              [value]="item.title"
-            >
-              {{ item.title }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </span>
-    </td>
-  </ng-container>
+        <span *ngIf="tableConfig[columnName].type === isDropdown">
+          <mat-form-field>
+            <mat-label>{{ getTranslation(columnName) | translate }}</mat-label>
+            <mat-select>
+              <mat-option
+                *ngFor="let item of tableConfig[columnName].data"
+                [value]="item.title"
+              >
+                {{ item.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </span>
+      </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="_displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: _displayedColumns"></tr>
-</table>
+    <tr mat-header-row *matHeaderRowDef="_displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: _displayedColumns"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
 
 <atv-table-config
   [tableConfig]="tableConfig"

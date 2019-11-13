@@ -16,6 +16,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCardModule} from '@angular/material/card';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 const modules = [
   MatTableModule,
@@ -33,6 +34,7 @@ const modules = [
   MatTooltipModule,
   MatCardModule,
   MatSnackBarModule,
+  MatPaginatorModule,
 ];
 
 @NgModule({

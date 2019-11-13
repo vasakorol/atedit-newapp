@@ -4,11 +4,13 @@ import {
   Input,
   OnInit,
   ViewEncapsulation,
+  ViewChild,
 } from '@angular/core';
 import {ConfigRow, ConfigTypes} from 'app/models/configRow.interface';
 import * as moment from 'moment';
 import {StorageService} from 'app/services/storage.service';
 import {TabTypes} from 'app/models/tabTypes.enum';
+import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'atv-table',
@@ -20,6 +22,9 @@ import {TabTypes} from 'app/models/tabTypes.enum';
 export class TableComponent implements OnInit {
   public isDate = ConfigTypes.date;
   public isDropdown = ConfigTypes.dropdown;
+  public dataSource: MatTableDataSource<<T>(arg: T) => T[]>;
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   private _displayedColumns: string[] = [];
 
@@ -48,6 +53,7 @@ export class TableComponent implements OnInit {
   @Input()
   set tableData(value: <T>(arg: T) => T[]) {
     this._tableData = value;
+    this.initTableDataSource(this.tableData);
   }
 
   private _dataType: TabTypes = null;
@@ -70,18 +76,23 @@ export class TableComponent implements OnInit {
     }
   }
 
-  parseDate(date: Date) {
+  public parseDate(date: Date) {
     return moment(date).format('YYYY-MM-DD');
   }
 
-  updateTable(evt): void {
+  public updateTable(evt): void {
     this.tableConfig = evt;
     const storageData = JSON.stringify(this.tableConfig);
     this.storageService.set(this._dataType + '-storage', storageData);
   }
 
-  getTranslation(columnName: string) {
+  public getTranslation(columnName: string) {
     return `${this.dataType.toUpperCase()}.${columnName.toUpperCase()}`;
+  }
+
+  public initTableDataSource(data): void {
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
   }
 
   private filterVisibleColumns(columns): string[] {
