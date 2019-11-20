@@ -1,10 +1,10 @@
-import { app, BrowserWindow, screen } from "electron";
-import * as path from "path";
-import * as url from "url";
+import {app, BrowserWindow, screen} from 'electron';
+import * as path from 'path';
+import * as url from 'url';
 
 let win, serve;
 const args = process.argv.slice(1);
-serve = args.some(val => val === "--serve");
+serve = args.some(val => val === '--serve');
 
 function createWindow() {
   const size = screen.getPrimaryDisplay().workAreaSize;
@@ -13,22 +13,23 @@ function createWindow() {
     y: 0,
     width: size.width,
     height: size.height,
-    backgroundColor: "red",
+    backgroundColor: 'red',
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      nodeIntegrationInWorker: true
     }
   });
 
   if (serve) {
-    require("electron-reload")(__dirname, {
+    require('electron-reload')(__dirname, {
       electron: require(`${__dirname}/node_modules/electron`)
     });
-    win.loadURL("http://localhost:4200");
+    win.loadURL('http://localhost:4200');
   } else {
     win.loadURL(
       url.format({
-        pathname: path.join(__dirname, "dist/atavism-editor/index.html"),
-        protocol: "file:",
+        pathname: path.join(__dirname, 'dist/atavism-editor/index.html'),
+        protocol: 'file:',
         slashes: true
       })
     );
@@ -36,20 +37,20 @@ function createWindow() {
   // if (serve) {
   win.webContents.openDevTools();
   // }
-  win.on("closed", () => {
+  win.on('closed', () => {
     win = null;
   });
 }
 
 try {
-  app.on("ready", createWindow);
-  app.on("window-all-closed", () => {
-    if (process.platform !== "darwin") {
+  app.on('ready', createWindow);
+  app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
       app.quit();
     }
   });
 
-  app.on("activate", () => {
+  app.on('activate', () => {
     if (win === null) {
       createWindow();
     }

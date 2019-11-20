@@ -1,9 +1,4 @@
-export const dataBase = [
-  'admin',
-  'atavism',
-  'master',
-  'world_content',
-] as const;
+export const dataBase = ['admin', 'atavism', 'master', 'world_content'] as const;
 export type DataBase = (typeof dataBase)[number];
 
 export interface DataBaseProfile {
@@ -17,12 +12,13 @@ export interface DataBaseProfile {
 export interface Profile {
   id: string;
   name: string;
-  game_folder: string;
+  folder: string;
+  meta: string;
   selected: boolean;
   databases: DataBaseProfile[];
   deleted: boolean;
 }
 export enum FormType {
   edit = 'edit',
-  new = 'new',
+  new = 'new'
 }

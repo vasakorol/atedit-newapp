@@ -8,14 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link href="assets/icons/meteocons/style.css" rel="stylesheet" />
-    <link
-      href="assets/icons/material-icons/outline/style.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700"
-      rel="stylesheet"
-    />
+    <link href="assets/icons/material-icons/outline/style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700" rel="stylesheet" />
 
     <style type="text/css">
       #fuse-splash-screen {
@@ -29,7 +23,6 @@
         z-index: 99999;
         pointer-events: none;
       }
-
       #fuse-splash-screen .center {
         display: block;
         width: 100%;
@@ -37,16 +30,13 @@
         top: 50%;
         transform: translateY(-50%);
       }
-
       #fuse-splash-screen .logo {
         width: 128px;
         margin: 0 auto;
       }
-
       #fuse-splash-screen .logo img {
         filter: drop-shadow(0px 10px 6px rgba(0, 0, 0, 0.2));
       }
-
       #fuse-splash-screen .spinner-wrapper {
         display: block;
         position: relative;
@@ -54,7 +44,6 @@
         min-height: 100px;
         height: 100px;
       }
-
       #fuse-splash-screen .spinner-wrapper .spinner {
         position: absolute;
         overflow: hidden;
@@ -62,14 +51,12 @@
         margin-left: -50px;
         animation: outer-rotate 2.91667s linear infinite;
       }
-
       #fuse-splash-screen .spinner-wrapper .spinner .inner {
         width: 100px;
         height: 100px;
         position: relative;
         animation: sporadic-rotate 5.25s cubic-bezier(0.35, 0, 0.25, 1) infinite;
       }
-
       #fuse-splash-screen .spinner-wrapper .spinner .inner .gap {
         position: absolute;
         left: 49px;
@@ -79,7 +66,6 @@
         border-top: 10px solid;
         box-sizing: border-box;
       }
-
       #fuse-splash-screen .spinner-wrapper .spinner .inner .left,
       #fuse-splash-screen .spinner-wrapper .spinner .inner .right {
         position: absolute;
@@ -88,7 +74,6 @@
         width: 50px;
         overflow: hidden;
       }
-
       #fuse-splash-screen .spinner-wrapper .spinner .inner .left .half-circle,
       #fuse-splash-screen .spinner-wrapper .spinner .inner .right .half-circle {
         position: absolute;
@@ -100,31 +85,24 @@
         border-bottom-color: transparent;
         border-radius: 50%;
       }
-
       #fuse-splash-screen .spinner-wrapper .spinner .inner .left {
         left: 0;
       }
-
       #fuse-splash-screen .spinner-wrapper .spinner .inner .left .half-circle {
         left: 0;
         border-right-color: transparent;
         animation: left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
-        -webkit-animation: left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1)
-          infinite;
+        -webkit-animation: left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
       }
-
       #fuse-splash-screen .spinner-wrapper .spinner .inner .right {
         right: 0;
       }
-
       #fuse-splash-screen .spinner-wrapper .spinner .inner .right .half-circle {
         right: 0;
         border-left-color: transparent;
         animation: right-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
-        -webkit-animation: right-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1)
-          infinite;
+        -webkit-animation: right-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
       }
-
       @keyframes outer-rotate {
         0% {
           transform: rotate(0deg) scale(0.5);
@@ -133,7 +111,6 @@
           transform: rotate(360deg) scale(0.5);
         }
       }
-
       @keyframes left-wobble {
         0%,
         100% {
@@ -143,7 +120,6 @@
           transform: rotate(-5deg);
         }
       }
-
       @keyframes right-wobble {
         0%,
         100% {
@@ -153,7 +129,6 @@
           transform: rotate(5deg);
         }
       }
-
       @keyframes sporadic-rotate {
         12.5% {
           transform: rotate(135deg);

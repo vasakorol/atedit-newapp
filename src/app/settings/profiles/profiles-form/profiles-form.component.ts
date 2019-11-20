@@ -1,9 +1,5 @@
 import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {dataBase, FormType, Profile} from '../profile';
 import {TranslateService} from '@ngx-translate/core';
@@ -20,7 +16,7 @@ interface InputData {
   selector: 'atv-profiles-form',
   templateUrl: './profiles-form.component.html',
   styleUrls: ['./profiles-form.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class ProfilesFormComponent implements OnInit {
   public action: FormType;
@@ -72,9 +68,7 @@ export class ProfilesFormComponent implements OnInit {
     this.databaseService.testConnection(item.getRawValue()).then(result => {
       if (!result.status) {
         this.snackBar.open(
-          this.translate.instant('DATABASE.CONNECTION.ERROR') +
-            ': ' +
-            result.message,
+          this.translate.instant('DATABASE.CONNECTION.ERROR') + ': ' + result.message,
           this.translate.instant('ACTIONS.CLOSE')
         );
       } else {
@@ -90,11 +84,11 @@ export class ProfilesFormComponent implements OnInit {
     remote.dialog
       .showOpenDialog({
         title: this.translate.instant('PROFILES.CHOOSE_FOLDER_TITLE'),
-        properties: ['openDirectory'],
+        properties: ['openDirectory']
       })
       .then(result => {
         if (!result.canceled) {
-          this.form.get('game_folder').patchValue(result.filePaths);
+          this.form.get('folder').patchValue(result.filePaths[0]);
         }
       });
   }
@@ -102,14 +96,15 @@ export class ProfilesFormComponent implements OnInit {
   private init(): void {
     this.form = this.fb.group({
       name: new FormControl('', [Validators.required]),
-      game_folder: new FormControl('', [Validators.required]),
+      folder: new FormControl('', [Validators.required]),
+      meta: new FormControl('', [Validators.required]),
       selected: new FormControl(false),
       databases: this.fb.array([
         this.createSubDatabase('admin'),
         this.createSubDatabase('atavism'),
         this.createSubDatabase('master'),
-        this.createSubDatabase('worldContent'),
-      ]),
+        this.createSubDatabase('worldContent')
+      ])
     });
     if (this._profile) {
       this.form.patchValue(this._profile);
@@ -123,7 +118,7 @@ export class ProfilesFormComponent implements OnInit {
       port: new FormControl(''),
       database: new FormControl('', [Validators.required]),
       user: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required])
     });
   }
 }

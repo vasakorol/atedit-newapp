@@ -5,7 +5,7 @@ import {ProfileGuard} from './profile.guard';
 describe('ProfileGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ProfileGuard],
+      providers: [ProfileGuard]
     });
   });
 

@@ -1,11 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  Input,
-  OnInit,
-  ViewEncapsulation,
-  ViewChild,
-} from '@angular/core';
+import {Component, ChangeDetectionStrategy, Input, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 import {ConfigRow, ConfigTypes} from 'app/models/configRow.interface';
 import * as moment from 'moment';
 import {StorageService} from 'app/services/storage.service';
@@ -17,7 +10,7 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class TableComponent implements OnInit {
   public isDate = ConfigTypes.date;
@@ -26,7 +19,7 @@ export class TableComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  private _displayedColumns: string[] = [];
+  public _displayedColumns: string[] = [];
 
   get displayedColumns(): string[] {
     return this._displayedColumns;
@@ -96,8 +89,6 @@ export class TableComponent implements OnInit {
   }
 
   private filterVisibleColumns(columns): string[] {
-    return Object.keys(columns).filter(
-      key => columns[key].visible && columns[key].filterVisible
-    );
+    return Object.keys(columns).filter(key => columns[key].visible && columns[key].filterVisible);
   }
 }

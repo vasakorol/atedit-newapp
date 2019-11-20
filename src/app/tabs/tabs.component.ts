@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'atv-tabs',
   templateUrl: './tabs.component.html',
-  styleUrls: ['./tabs.component.scss'],
+  styleUrls: ['./tabs.component.scss']
 })
 export class TabsComponent implements OnInit {
   private destroyer = new Subject();
@@ -17,10 +17,7 @@ export class TabsComponent implements OnInit {
   public tabs = this.tabsService.tabs.pipe(takeUntil(this.destroyer));
   public selectedTab = 0;
 
-  constructor(
-    private readonly router: Router,
-    private readonly tabsService: TabsService
-  ) {}
+  constructor(private readonly router: Router, private readonly tabsService: TabsService) {}
 
   public ngOnInit(): void {
     this.tabs.pipe(takeUntil(this.destroyer)).subscribe(tabs => {

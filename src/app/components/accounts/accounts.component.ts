@@ -6,7 +6,7 @@ import {TabTypes} from 'app/models/tabTypes.enum';
 @Component({
   selector: 'atv-accounts',
   templateUrl: './accounts.component.html',
-  styleUrls: ['./accounts.component.scss'],
+  styleUrls: ['./accounts.component.scss']
 })
 export class AccountsComponent implements OnInit {
   constructor() {}
@@ -18,51 +18,51 @@ export class AccountsComponent implements OnInit {
       type: ConfigTypes.number,
       visible: true,
       filterVisible: true,
-      useAsSearch: false,
+      useAsSearch: false
     },
     mod_id: {
       type: ConfigTypes.dropdown,
       visible: true,
       filterVisible: true,
       useAsSearch: false,
-      data: [{id: 1, title: 'Mod 1'}, {id: 2, title: 'Mod 2'}],
+      data: [{id: 1, title: 'Mod 1'}, {id: 2, title: 'Mod 2'}]
     },
     name: {
       type: ConfigTypes.string,
       visible: true,
       filterVisible: true,
-      useAsSearch: true,
+      useAsSearch: true
     },
     faction: {
       type: ConfigTypes.string,
       visible: true,
       filterVisible: true,
-      useAsSearch: true,
+      useAsSearch: true
     },
     motd: {
       type: ConfigTypes.string,
       visible: true,
       filterVisible: false,
-      useAsSearch: true,
+      useAsSearch: true
     },
     omotd: {
       type: ConfigTypes.string,
       visible: true,
       filterVisible: false,
-      useAsSearch: true,
+      useAsSearch: true
     },
     isActive: {
       type: ConfigTypes.boolean,
       visible: true,
       filterVisible: true,
-      useAsSearch: false,
+      useAsSearch: false
     },
     creationtimestamp: {
       type: ConfigTypes.date,
       visible: true,
       filterVisible: true,
-      useAsSearch: false,
-    },
+      useAsSearch: false
+    }
   };
 
   data: AccountsInterface[] = [
@@ -74,7 +74,7 @@ export class AccountsComponent implements OnInit {
       motd: 'Example',
       omotd: 'Example',
       isActive: true,
-      creationtimestamp: '2004-02-12T15:19:21+00:00',
+      creationtimestamp: '2004-02-12T15:19:21+00:00'
     },
     {
       id: 2,
@@ -84,7 +84,7 @@ export class AccountsComponent implements OnInit {
       motd: 'Example',
       omotd: 'Example',
       isActive: true,
-      creationtimestamp: '2004-02-12T15:19:21+00:00',
+      creationtimestamp: '2004-02-12T15:19:21+00:00'
     },
     {
       id: 2,
@@ -94,7 +94,7 @@ export class AccountsComponent implements OnInit {
       motd: 'Example',
       omotd: 'Example',
       isActive: true,
-      creationtimestamp: '2004-02-12T15:19:21+00:00',
+      creationtimestamp: '2004-02-12T15:19:21+00:00'
     },
     {
       id: 2,
@@ -104,7 +104,7 @@ export class AccountsComponent implements OnInit {
       motd: 'Example',
       omotd: 'Example',
       isActive: true,
-      creationtimestamp: '2004-02-12T15:19:21+00:00',
+      creationtimestamp: '2004-02-12T15:19:21+00:00'
     },
     {
       id: 2,
@@ -114,7 +114,7 @@ export class AccountsComponent implements OnInit {
       motd: 'Example',
       omotd: 'Example',
       isActive: true,
-      creationtimestamp: '2004-02-12T15:19:21+00:00',
+      creationtimestamp: '2004-02-12T15:19:21+00:00'
     },
     {
       id: 2,
@@ -124,7 +124,7 @@ export class AccountsComponent implements OnInit {
       motd: 'Example',
       omotd: 'Example',
       isActive: true,
-      creationtimestamp: '2004-02-12T15:19:21+00:00',
+      creationtimestamp: '2004-02-12T15:19:21+00:00'
     },
     {
       id: 2,
@@ -134,7 +134,7 @@ export class AccountsComponent implements OnInit {
       motd: 'Example',
       omotd: 'Example',
       isActive: true,
-      creationtimestamp: '2004-02-12T15:19:21+00:00',
+      creationtimestamp: '2004-02-12T15:19:21+00:00'
     },
     {
       id: 2,
@@ -144,7 +144,7 @@ export class AccountsComponent implements OnInit {
       motd: 'Example',
       omotd: 'Example',
       isActive: true,
-      creationtimestamp: '2004-02-12T15:19:21+00:00',
+      creationtimestamp: '2004-02-12T15:19:21+00:00'
     },
     {
       id: 2,
@@ -154,8 +154,8 @@ export class AccountsComponent implements OnInit {
       motd: 'Example',
       omotd: 'Example',
       isActive: true,
-      creationtimestamp: '2004-02-12T15:19:21+00:00',
-    },
+      creationtimestamp: '2004-02-12T15:19:21+00:00'
+    }
   ];
 
   dataType: TabTypes = TabTypes.ACCOUNTS;

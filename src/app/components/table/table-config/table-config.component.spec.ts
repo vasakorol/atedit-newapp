@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TableConfigComponent } from "./table-config.component";
+import {TableConfigComponent} from './table-config.component';
 
-describe("TableConfigComponent", () => {
+describe('TableConfigComponent', () => {
   let component: TableConfigComponent;
   let fixture: ComponentFixture<TableConfigComponent>;
 
@@ -18,7 +18,7 @@ describe("TableConfigComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

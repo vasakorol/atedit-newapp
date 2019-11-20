@@ -1,11 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  ChangeDetectionStrategy,
-  EventEmitter,
-  ViewEncapsulation,
-} from '@angular/core';
+import {Component, Input, Output, ChangeDetectionStrategy, EventEmitter, ViewEncapsulation} from '@angular/core';
 import {FuseSidebarService} from '@fuse/components/sidebar/sidebar.service';
 import {ConfigRow} from 'app/models/configRow.interface';
 import {MatCheckboxChange} from '@angular/material/checkbox';
@@ -16,12 +9,10 @@ import {TabTypes} from 'app/models/tabTypes.enum';
   templateUrl: './table-config.component.html',
   styleUrls: ['./table-config.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class TableConfigComponent {
-  @Output() newTableConfig = new EventEmitter<
-    <T>(arg: T) => {[key in keyof T]: ConfigRow}
-  >();
+  @Output() newTableConfig = new EventEmitter<<T>(arg: T) => {[key in keyof T]: ConfigRow}>();
 
   private _tableConfig: <T>(arg: T) => {[key in keyof T]: ConfigRow} = null;
 
@@ -52,9 +43,7 @@ export class TableConfigComponent {
   }
 
   toggleSidebar(): void {
-    this.fuseSiderbarService
-      .getSidebar(this.dataType + '-table-config-sidebar')
-      .toggleOpen();
+    this.fuseSiderbarService.getSidebar(this.dataType + '-table-config-sidebar').toggleOpen();
   }
 
   toggleColumnVisibility(event: MatCheckboxChange, key: string): void {

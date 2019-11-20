@@ -5,10 +5,11 @@ export enum StorageKeys {
   storageProfilesKey = 'storage_profiles_key',
   storageTabsKey = 'storage_tabs_key',
   storageTranslationKey = 'storage_translations_key',
+  storageMetaFilteredFilesKey = 'storage_meta_filtered_files_key'
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class StorageService {
   private store: any;

@@ -1,6 +1,6 @@
 export const locale = {
   MAIN: {
-    TITLE: 'Atavism Editor',
+    TITLE: 'Atavism Editor'
   },
   ACTIONS: {
     SAVE: 'Save',
@@ -13,16 +13,26 @@ export const locale = {
     CHOOSE_FOLDER: 'Choose folder',
     CHOOSE_FILE: 'Choose file',
     DOWNLOAD_SAMPLE: 'Download sample',
+    MORE: 'More',
+    SYNC: 'Synchronize'
   },
   CONFIRM: {
     REMOVE_TITLE: 'Confirm',
-    REMOVE: 'Are you sure you want to delete?',
+    REMOVE: 'Are you sure you want to delete?'
   },
   DATABASE: {
     CONNECTION: {
       ERROR: 'Connection error',
-      SUCCESS: 'Success connection',
-    },
+      SUCCESS: 'Success connection'
+    }
+  },
+  SETTINGS: {
+    TITLE: 'Settings'
+  },
+  FILE_MANAGER: {
+    TITLE: 'File manager',
+    SEARCH_PLACEHOLDER: 'Search for an icon',
+    SYNC_COMPLETE: 'File synchronization complete.'
   },
   TRANSLATIONS: {
     TITLE: 'Translations',
@@ -33,14 +43,15 @@ export const locale = {
     MARK_AS_UNSELECTED: 'Un use translation',
     SELECTED: 'In Use',
     DEFAULT: ' (not editable)',
+    SETTINGS: 'Settings',
     FORM: {
       TITLE_NEW: 'New Translation',
       TITLE_EDIT: 'Edit Translation',
       NAME: 'Language',
       CODE: 'Language code',
       SELECTED: 'Use as selected',
-      TRANSLATION_FILE: 'File with translations',
-    },
+      TRANSLATION_FILE: 'File with translations'
+    }
   },
   PROFILES: {
     TITLE: 'Profiles',
@@ -48,7 +59,8 @@ export const locale = {
     SEARCH_PLACEHOLDER: 'Search for a profile',
     NAME: 'Name',
     DATABASE_COUNT: 'Database Count',
-    GAME_FOLDER: 'Game Folder',
+    FOLDER: 'Project Folder',
+    META: 'Search Metadata',
     SELECTED: 'In Use',
     MARK_AS_SELECTED: 'Use profile',
     MARK_AS_UNSELECTED: 'Un use profile',
@@ -60,32 +72,33 @@ export const locale = {
         ADMIN: 'Admin Database',
         ATAVISM: 'Atavism Database',
         MASTER: 'Master Database',
-        WORLD_CONTENT: 'World Content Database',
-      },
+        WORLD_CONTENT: 'World Content Database'
+      }
     },
     FORM: {
       TITLE_NEW: 'New Profile',
       TITLE_EDIT: 'Edit Profile',
       NAME: 'Profile name',
-      GAME_FOLDER: 'Game folder',
+      FOLDER: 'Project folder',
+      META: 'Project Metadata',
       SELECTED: 'Select profile',
       HOST: 'Host',
       PORT: 'Port',
       DATABASE: 'Database',
       USER: 'User',
-      PASSWORD: 'Password',
-    },
+      PASSWORD: 'Password'
+    }
   },
   NAV: {
     SECTION: {
       SERVER: 'Server',
-      ITEM: 'Item',
+      ITEM: 'Item'
     },
     INSTANCES: 'Instances',
     ACCOUNTS: 'Accounts',
     TASK: 'Task',
     ITEMS: 'Items',
-    CURRENCIES: 'Currencies',
+    CURRENCIES: 'Currencies'
   },
   ACCOUNTS: {
     ID: 'id',
@@ -93,12 +106,12 @@ export const locale = {
     NAME: 'name',
     FACTION: 'faction',
     ISACTIVE: 'isActive',
-    CREATIONTIMESTAMP: 'creation timestamp',
+    CREATIONTIMESTAMP: 'creation timestamp'
   },
   CURRENCIES: {
     GOLD: 'gold',
     SILVER: 'silver',
     BRONZE: 'bronze',
-    DIAMONDS: 'diamonds',
-  },
+    DIAMONDS: 'diamonds'
+  }
 };
