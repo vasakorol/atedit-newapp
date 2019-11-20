@@ -8,7 +8,7 @@ describe('ProfilesFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ProfilesFormComponent],
+      declarations: [ProfilesFormComponent]
     }).compileComponents();
   }));
 

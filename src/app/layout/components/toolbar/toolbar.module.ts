@@ -21,8 +21,8 @@ import {TranslateModule} from '@ngx-translate/core';
     FuseSharedModule,
     FuseSearchBarModule,
     FuseShortcutsModule,
-    TranslateModule,
+    TranslateModule
   ],
-  exports: [ToolbarComponent],
+  exports: [ToolbarComponent]
 })
 export class ToolbarModule {}

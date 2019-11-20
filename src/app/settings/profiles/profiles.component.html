@@ -8,16 +8,12 @@
   >
     <div fxLayout="row" fxLayoutAlign="start center">
       <div class="logo" fxLayout="row" fxLayoutAlign="start center">
-        <mat-icon
-          class="logo-icon mr-16"
-          [@animate]="{value: '*', params: {delay: '50ms', scale: '0.2'}}"
-          >account_box</mat-icon
-        >
-        <span
-          class="logo-text h1"
-          [@animate]="{value: '*', params: {delay: '100ms', x: '-25px'}}"
-          >{{ 'PROFILES.TITLE' | translate }}</span
-        >
+        <mat-icon class="logo-icon mr-16" [@animate]="{value: '*', params: {delay: '50ms', scale: '0.2'}}">
+          account_box
+        </mat-icon>
+        <span class="logo-text h1" [@animate]="{value: '*', params: {delay: '100ms', x: '-25px'}}">
+          {{ 'PROFILES.TITLE' | translate }}
+        </span>
       </div>
     </div>
 
@@ -25,10 +21,7 @@
       <div class="search-wrapper mt-16 mt-sm-0">
         <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
           <mat-icon>search</mat-icon>
-          <input
-            [formControl]="searchInput"
-            [placeholder]="'PROFILES.SEARCH_PLACEHOLDER' | translate"
-          />
+          <input [formControl]="searchInput" [placeholder]="'PROFILES.SEARCH_PLACEHOLDER' | translate" />
         </div>
       </div>
     </div>
@@ -39,81 +32,61 @@
       <div class="content">
         <mat-table [dataSource]="profiles" [@animateStagger]="{value: '50'}">
           <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>{{
-              'PROFILES.NAME' | translate
-            }}</mat-header-cell>
-            <mat-cell *matCellDef="let profile">
+            <mat-header-cell fxFlex="200px" *matHeaderCellDef>{{ 'PROFILES.NAME' | translate }}</mat-header-cell>
+            <mat-cell fxFlex="200px" *matCellDef="let profile">
               <p class="text-truncate font-weight-600">{{ profile.name }}</p>
             </mat-cell>
           </ng-container>
-          <ng-container matColumnDef="databases">
-            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>{{
-              'PROFILES.DATABASE_COUNT' | translate
-            }}</mat-header-cell>
+          <ng-container matColumnDef="folder">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>
+              {{ 'PROFILES.FOLDER' | translate }}
+            </mat-header-cell>
             <mat-cell *matCellDef="let profile" fxHide fxShow.gt-xs>
-              <p class="email text-truncate">{{ profile.databases.length }}</p>
+              <p class="phone text-truncate">{{ profile.folder }}</p>
             </mat-cell>
           </ng-container>
-          <ng-container matColumnDef="game_folder">
-            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>{{
-              'PROFILES.GAME_FOLDER' | translate
-            }}</mat-header-cell>
+          <ng-container matColumnDef="meta">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>
+              {{ 'PROFILES.META' | translate }}
+            </mat-header-cell>
             <mat-cell *matCellDef="let profile" fxHide fxShow.gt-sm>
-              <p class="phone text-truncate">{{ profile.game_folder }}</p>
+              <p class="phone text-truncate">{{ profile.meta }}</p>
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="selected">
-            <mat-header-cell *matHeaderCellDef>{{
-              'PROFILES.SELECTED' | translate
-            }}</mat-header-cell>
-            <mat-cell *matCellDef="let profile">
+            <mat-header-cell fxFlex="50px" *matHeaderCellDef>{{ 'PROFILES.SELECTED' | translate }}</mat-header-cell>
+            <mat-cell fxFlex="50px" *matCellDef="let profile">
               <button
                 mat-icon-button
                 [attr.aria-label]="
-                  (profile.selected
-                    ? 'PROFILES.MARK_AS_SELECTED'
-                    : 'PROFILES.MARK_AS_UNSELECTED') | translate
+                  (profile.selected ? 'PROFILES.MARK_AS_SELECTED' : 'PROFILES.MARK_AS_UNSELECTED') | translate
                 "
                 (click)="$event.stopPropagation(); toggleSelected(profile.id)"
               >
-                <mat-icon [class.profile_selected]="profile.selected"
-                  >check_circle</mat-icon
-                >
+                <mat-icon [class.profile_selected]="profile.selected">check_circle</mat-icon>
               </button>
             </mat-cell>
           </ng-container>
 
           <!-- Buttons Column -->
           <ng-container matColumnDef="actions">
-            <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell
-              *matCellDef="let profile"
-              fxLayoutAlign="flex-end"
-              stickyEnd
-            >
+            <mat-header-cell fxFlex="50px" *matHeaderCellDef></mat-header-cell>
+            <mat-cell fxFlex="50px" *matCellDef="let profile" fxLayoutAlign="flex-end" stickyEnd>
               <button
                 mat-icon-button
                 [matMenuTriggerFor]="moreMenu"
-                aria-label="More"
+                aria-label="'ACTIONS.MORE' | translate"
                 (click)="$event.stopPropagation()"
               >
                 <mat-icon class="secondary-text">more_vert</mat-icon>
               </button>
               <mat-menu #moreMenu="matMenu">
-                <button
-                  mat-menu-item
-                  aria-label="remove"
-                  (click)="editProfile(profile)"
-                >
+                <button mat-menu-item [attr.aria-label]="'ACTIONS.EDIT' | translate" (click)="editProfile(profile)">
                   <mat-icon>edit</mat-icon>
                   <span>{{ 'ACTIONS.EDIT' | translate }}</span>
                 </button>
-                <button
-                  mat-menu-item
-                  aria-label="remove"
-                  (click)="removeProfile(profile)"
-                >
+                <button mat-menu-item [attr.aria-label]="'ACTIONS.REMOVE' | translate" (click)="removeProfile(profile)">
                   <mat-icon>delete</mat-icon>
                   <span>{{ 'ACTIONS.REMOVE' | translate }}</span>
                 </button>

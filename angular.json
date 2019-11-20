@@ -116,17 +116,13 @@
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
-            "scripts": [],
-            "customWebpackConfig": {
-              "path": "./angular.webpack.js",
-              "target": "web"
-            }
+            "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json"],
+            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "tsconfig.worker.json"],
             "exclude": ["**/node_modules/**"]
           }
         }

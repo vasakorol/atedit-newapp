@@ -3,7 +3,7 @@ export enum ConfigTypes {
   string = 'string',
   dropdown = 'dropdown',
   boolean = 'boolean',
-  date = 'date',
+  date = 'date'
 }
 
 export interface ConfigRow {

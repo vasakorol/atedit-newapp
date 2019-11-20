@@ -1,12 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  HostBinding,
-  Input,
-  OnDestroy,
-  OnInit,
-  Type,
-} from '@angular/core';
+import {ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit, Type} from '@angular/core';
 import {merge, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -20,7 +12,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'fuse-nav-vertical-item',
   templateUrl: './item.component.html',
-  styleUrls: ['./item.component.scss'],
+  styleUrls: ['./item.component.scss']
 })
 export class FuseNavVerticalItemComponent implements OnInit, OnDestroy {
   @HostBinding('class') public classes = 'nav-item';
@@ -65,7 +57,7 @@ export class FuseNavVerticalItemComponent implements OnInit, OnDestroy {
       title: item.title,
       type: selectedTab.type,
       active: true,
-      component: selectedTab.component,
+      component: selectedTab.component
     };
     this.tabsService.addTab(tab);
     this._fuseSidebarService.getSidebar('navbar').toggleOpen();

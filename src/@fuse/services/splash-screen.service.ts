@@ -1,84 +1,63 @@
-import { Inject, Injectable } from "@angular/core";
-import { DOCUMENT } from "@angular/common";
-import {
-  animate,
-  AnimationBuilder,
-  AnimationPlayer,
-  style
-} from "@angular/animations";
-import { NavigationEnd, Router } from "@angular/router";
-
-import { filter, take } from "rxjs/operators";
+import {Inject, Injectable} from '@angular/core';
+import {DOCUMENT} from '@angular/common';
+import {animate, AnimationBuilder, AnimationPlayer, style} from '@angular/animations';
+import {NavigationEnd, Router} from '@angular/router';
+import {filter, take} from 'rxjs/operators';
+import {FileManagerService} from '../../app/settings/file-manager/file-manager.service';
+import {AppConfig} from '../../environments/environment';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class FuseSplashScreenService {
-  splashScreenEl: any;
-  player: AnimationPlayer;
+  public splashScreenEl: any;
+  public player: AnimationPlayer;
 
-  /**
-   * Constructor
-   *
-   * @param {AnimationBuilder} _animationBuilder
-   * @param _document
-   * @param {Router} _router
-   */
   constructor(
-    private _animationBuilder: AnimationBuilder,
-    @Inject(DOCUMENT) private _document: any,
-    private _router: Router
+    private readonly animationBuilder: AnimationBuilder,
+    private readonly fileManagerService: FileManagerService,
+    private readonly router: Router,
+    @Inject(DOCUMENT) private _document: any
   ) {
-    // Initialize
     this._init();
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Private methods
-  // -----------------------------------------------------------------------------------------------------
-
   /**
    * Initialize
-   *
-   * @private
    */
   private _init(): void {
-    // Get the splash screen element
-    this.splashScreenEl = this._document.body.querySelector(
-      "#fuse-splash-screen"
-    );
-
-    // If the splash screen element exists...
+    this.splashScreenEl = this._document.body.querySelector('#fuse-splash-screen');
     if (this.splashScreenEl) {
-      // Hide it on the first NavigationEnd event
-      this._router.events
+      this.router.events
         .pipe(
           filter(event => event instanceof NavigationEnd),
           take(1)
         )
         .subscribe(() => {
           setTimeout(() => {
-            this.hide();
+            if (AppConfig.environment === 'PROD') {
+              this.fileManagerService.checkFolders().then(() => {
+                this.hide();
+              });
+            } else {
+              this.hide();
+            }
           });
         });
     }
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
-
   /**
    * Show the splash screen
    */
   show(): void {
-    this.player = this._animationBuilder
+    this.player = this.animationBuilder
       .build([
         style({
-          opacity: "0",
-          zIndex: "99999"
+          opacity: '0',
+          zIndex: '99999'
         }),
-        animate("400ms ease", style({ opacity: "1" }))
+        animate('400ms ease', style({opacity: '1'}))
       ])
       .create(this.splashScreenEl);
 
@@ -91,17 +70,8 @@ export class FuseSplashScreenService {
    * Hide the splash screen
    */
   hide(): void {
-    this.player = this._animationBuilder
-      .build([
-        style({ opacity: "1" }),
-        animate(
-          "400ms ease",
-          style({
-            opacity: "0",
-            zIndex: "-10"
-          })
-        )
-      ])
+    this.player = this.animationBuilder
+      .build([style({opacity: '1'}), animate('400ms ease', style({opacity: '0', zIndex: '-10'}))])
       .create(this.splashScreenEl);
 
     setTimeout(() => {

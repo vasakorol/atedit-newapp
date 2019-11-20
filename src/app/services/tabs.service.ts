@@ -4,7 +4,7 @@ import {ReplaySubject} from 'rxjs';
 import {Tab, tabs} from '../tabs/tabs.data';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class TabsService {
   private tabsStream = new ReplaySubject<Tab[]>(1);
@@ -16,9 +16,7 @@ export class TabsService {
   }
 
   private init() {
-    const savedTabs = this.storageService.get<Tab[]>(
-      StorageKeys.storageTabsKey
-    );
+    const savedTabs = this.storageService.get<Tab[]>(StorageKeys.storageTabsKey);
     if (savedTabs) {
       this.listTabs = [];
       savedTabs.forEach(item => {
@@ -71,9 +69,6 @@ export class TabsService {
   }
 
   private saveToStorage() {
-    this.storageService.set(
-      StorageKeys.storageTabsKey,
-      this.listTabs.map(tab => ({id: tab.id, active: tab.active}))
-    );
+    this.storageService.set(StorageKeys.storageTabsKey, this.listTabs.map(tab => ({id: tab.id, active: tab.active})));
   }
 }

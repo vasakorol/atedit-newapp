@@ -6,7 +6,7 @@ import {TabTypes} from 'app/models/tabTypes.enum';
 @Component({
   selector: 'atv-currencies',
   templateUrl: './currencies.component.html',
-  styleUrls: ['./currencies.component.scss'],
+  styleUrls: ['./currencies.component.scss']
 })
 export class CurrenciesComponent implements OnInit {
   constructor() {}
@@ -18,26 +18,26 @@ export class CurrenciesComponent implements OnInit {
       type: ConfigTypes.number,
       visible: true,
       filterVisible: true,
-      useAsSearch: false,
+      useAsSearch: false
     },
     silver: {
       type: ConfigTypes.number,
       visible: true,
       filterVisible: true,
-      useAsSearch: false,
+      useAsSearch: false
     },
     bronze: {
       type: ConfigTypes.number,
       visible: true,
       filterVisible: true,
-      useAsSearch: true,
+      useAsSearch: true
     },
     diamonds: {
       type: ConfigTypes.number,
       visible: true,
       filterVisible: true,
-      useAsSearch: true,
-    },
+      useAsSearch: true
+    }
   };
 
   data: CurrenciesInterface[] = [
@@ -45,50 +45,50 @@ export class CurrenciesComponent implements OnInit {
       gold: 5,
       silver: 2,
       bronze: 12,
-      diamonds: 33,
+      diamonds: 33
     },
     {
       gold: 55,
       silver: 2,
       bronze: 12,
-      diamonds: 33,
+      diamonds: 33
     },
     {
       gold: 15,
       silver: 2,
       bronze: 12,
-      diamonds: 233,
+      diamonds: 233
     },
     {
       gold: 25,
       silver: 2,
       bronze: 12,
-      diamonds: 33,
+      diamonds: 33
     },
     {
       gold: 45,
       silver: 2,
       bronze: 122,
-      diamonds: 313,
+      diamonds: 313
     },
     {
       gold: 5,
       silver: 2,
       bronze: 12,
-      diamonds: 33,
+      diamonds: 33
     },
     {
       gold: 5,
       silver: 42,
       bronze: 12,
-      diamonds: 33,
+      diamonds: 33
     },
     {
       gold: 225,
       silver: 2,
       bronze: 12,
-      diamonds: 333,
-    },
+      diamonds: 333
+    }
   ];
 
   dataType: TabTypes = TabTypes.CURRENCIES;

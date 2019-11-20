@@ -1,4 +1,4 @@
 export enum TabTypes {
-  ACCOUNTS = "accounts",
-  CURRENCIES = "currencies"
+  ACCOUNTS = 'accounts',
+  CURRENCIES = 'currencies'
 }

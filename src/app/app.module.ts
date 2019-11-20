@@ -17,7 +17,7 @@ import {
   FuseConfirmDialogModule,
   FuseProgressBarModule,
   FuseSidebarModule,
-  FuseThemeOptionsModule,
+  FuseThemeOptionsModule
 } from '@fuse/components';
 import {FuseSharedModule} from '@fuse/shared.module';
 import {LayoutModule} from './layout/layout.module';
@@ -41,6 +41,8 @@ import {ProfilesFormComponent} from './settings/profiles/profiles-form/profiles-
 import {MaterialModule} from './material.module';
 import {TranslationComponent} from './settings/translation/translation.component';
 import {TranslationFormComponent} from './settings/translation/translation-form/translation-form.component';
+import {FileManagerComponent} from './settings/file-manager/file-manager.component';
+import {LoadingComponent} from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import {TranslationFormComponent} from './settings/translation/translation-form/
     ProfilesFormComponent,
     TranslationComponent,
     TranslationFormComponent,
+    FileManagerComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +88,7 @@ import {TranslationFormComponent} from './settings/translation/translation-form/
     MatCheckboxModule,
     LayoutModule,
     FuseConfirmDialogModule,
-    LayoutModule,
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -96,6 +100,7 @@ import {TranslationFormComponent} from './settings/translation/translation-form/
     TaskComponent,
     ProfilesFormComponent,
     TranslationFormComponent,
-  ],
+    FileManagerComponent
+  ]
 })
 export class AppModule {}
