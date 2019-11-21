@@ -1,5 +1,6 @@
 {
   "name": "atavism-editor",
+  "description": "Atavism Editor",
   "version": "0.0.6",
   "main": "main.js",
   "author": {
@@ -71,7 +72,7 @@
     "@types/prismjs": "^1.16.0",
     "codelyzer": "5.1.0",
     "electron": "^7.0.0",
-    "electron-builder": "^22.1.0",
+    "electron-builder": "21.1.5",
     "electron-reload": "^1.5.0",
     "electron-store": "^5.1.0",
     "hammerjs": "^2.0.8",
