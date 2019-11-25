@@ -1,7 +1,7 @@
 <div class="navbar-top" [ngClass]="fuseConfig.layout.navbar.secondaryBackground">
   <div class="logo">
-    <img class="logo-icon" [src]="'../assets/images/logos/logo.png'" />
-    <span class="logo-text secondary-text">{{ 'MAIN.TITLE' | translate }}</span>
+    <img class="logo-icon" [src]="'assets/images/logos/logo.png'" />
+    <span class="logo-text secondary-text">{{ 'MAIN.TITLE' | translate }} ({{ version }})</span>
   </div>
   <div class="buttons">
     <button mat-icon-button class="toggle-sidebar-folded" (click)="toggleSidebarFolded()" fxHide.lt-lg>
@@ -19,14 +19,6 @@
   fusePerfectScrollbar
   [fusePerfectScrollbarOptions]="{suppressScrollX: true}"
 >
-  <div *ngIf="false" class="user" fxLayout="column" [ngClass]="fuseConfig.layout.navbar.secondaryBackground">
-    <div class="h3 username">Charlie Adams</div>
-    <div class="h5 email hint-text mt-8">adams.charlie@mail.com</div>
-    <div class="avatar-container" [ngClass]="fuseConfig.layout.navbar.primaryBackground">
-      <img class="avatar" src="../../../../../../assets/images/avatars/Velazquez.jpg" />
-    </div>
-  </div>
-
   <div class="navbar-content">
     <fuse-navigation class="material2" layout="vertical"></fuse-navigation>
   </div>

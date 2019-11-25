@@ -1,6 +1,7 @@
 export const locale = {
   MAIN: {
-    TITLE: 'Atavism Editor'
+    TITLE: 'Atavism Editor',
+    VERSION: 'Version'
   },
   ACTIONS: {
     SAVE: 'Save',

@@ -92,8 +92,9 @@
           <mat-icon>settings</mat-icon>
         </div>
       </button>
-      <mat-menu #settingsMenu="matMenu" [overlapTrigger]="false"></mat-menu>
-
+      <mat-menu #settingsMenu="matMenu" [overlapTrigger]="false">
+        <button mat-menu-item *ngIf="version">{{ 'MAIN.VERSION' | translate }} {{ version }}</button>
+      </mat-menu>
       <div class="toolbar-separator" *ngIf="!hiddenNavbar && rightNavbar" fxHide fxShow.gt-xs></div>
       <button
         mat-icon-button
